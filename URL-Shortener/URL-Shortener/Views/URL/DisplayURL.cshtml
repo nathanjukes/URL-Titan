@@ -1,0 +1,11 @@
+﻿@using URL_Shortener.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model URL
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Display URL";
+}
+
+<h3>Here is the shortened URL:  @(ViewData["Domain"]+Model.ShortenedIdentifier) </h3>
+

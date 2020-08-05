@@ -1,0 +1,15 @@
+steps:
+
+1) user inputs url 
+2) assign the url to an id in database 
+3) when user inputs www.urlshortener/fsd29  take fsd29 as the id of the website 
+4) get website from db with that id
+5) route them to the website
+
+
+
+also at the bottom: list their previous url's like: 
+
+Your previous urls:
+
+(shortened url) : (full url)

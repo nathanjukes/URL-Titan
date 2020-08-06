@@ -5680,6 +5680,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   }
 }
 
+.description{
+    color:red;
+}
+
 @media (min-width: 1200px) {
   .list-group-horizontal-xl {
     -ms-flex-direction: row;

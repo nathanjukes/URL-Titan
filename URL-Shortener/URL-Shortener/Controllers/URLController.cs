@@ -44,14 +44,24 @@ namespace URL_Shortener.Controllers
         {
             return View();
         }
+        
+        public IActionResult Index()
+        {
+            return View("EnterURL");
+        }
 
         [HttpPost]
-        public ActionResult UploadURL(URL url)
+        public IActionResult UploadURL(URL url)
         {
             Console.WriteLine(url.BaseURL + url.Id);
             ViewData["Domain"] = URLData.GetHostname(Request);
 
             return View("DisplayURL", url);
+        }
+
+        public IActionResult ContactMe()
+        {
+            return View("ContactPage");
         }
     }
 }

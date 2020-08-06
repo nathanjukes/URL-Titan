@@ -26,6 +26,7 @@ namespace URL_Shortener
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             //Adding the db context class to scope
             services.AddDbContext<URLContext>(options => options.UseMySQL(_configuration.GetConnectionString("DefaultConnection")));

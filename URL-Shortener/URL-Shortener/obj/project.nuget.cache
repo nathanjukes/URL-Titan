@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LDkkELTQWgy+HZDLCFPuoqrThKLD2g6eLzy9RZWYGnYuDIn0GalBLaazqGjiSlRt+mOUKazJyyUIfbqriSN+zA==",
+  "dgSpecHash": "t4413FTFhkGuBboEFrmmt8z7p4PM0UzyhiU8RV9rTqglaGgHD2fSpPfNfZ/G3hLEpI07EyEz5E3rRDzFw06IVw==",
   "success": true,
   "projectFilePath": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\URL-Shortener.csproj",
   "expectedPackageFiles": [
@@ -10,8 +10,10 @@
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\k4os.compression.lz4.streams\\1.1.11\\k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.6\\microsoft.aspnetcore.mvc.razor.extensions.3.1.6.nupkg.sha512",
+    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\3.1.6\\microsoft.aspnetcore.mvc.razor.runtimecompilation.3.1.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
-    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
+    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.6\\microsoft.aspnetcore.razor.language.3.1.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.razor.runtime\\2.2.0\\microsoft.aspnetcore.razor.runtime.2.2.0.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
@@ -19,7 +21,7 @@
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.common\\3.3.1\\microsoft.codeanalysis.common.3.3.1.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.3.1\\microsoft.codeanalysis.csharp.3.3.1.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.csharp.workspaces\\3.3.1\\microsoft.codeanalysis.csharp.workspaces.3.3.1.nupkg.sha512",
-    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.razor\\3.1.0\\microsoft.codeanalysis.razor.3.1.0.nupkg.sha512",
+    "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.razor\\3.1.6\\microsoft.codeanalysis.razor.3.1.6.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.codeanalysis.workspaces.common\\3.3.1\\microsoft.codeanalysis.workspaces.common.3.3.1.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Nathan Jukes\\.nuget\\packages\\microsoft.data.sqlclient\\1.0.19269.1\\microsoft.data.sqlclient.1.0.19269.1.nupkg.sha512",

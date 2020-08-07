@@ -7,29 +7,32 @@
     <title>@ViewData["Title"]</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body class="bg-dark">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-expand-md pt-3 pr-0">
-            <a class="navbar-brand" asp-controller="url" asp-action="index" style="font-size:30px">Nathan Jukes URL Shortener</a>
+            <a class="navbar-brand mt-0" asp-controller="url" asp-action="index" style="font-size:25px; white-space:normal">Nathan Jukes URL Shortener</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mt-2" style="font-size: 20px">
-                    <li class="nav-item active">
-                        <a class="nav-link ml-4" asp-controller="url" asp-action="index">Home<span class="sr-only">(current)</span></a>
+                    <li class="nav-item active" id="Home">
+                        <a class="nav-link ml-4" asp-controller="url" asp-action="index">Home</a>
                     </li>
-                    <li class="nav-item ml-4">
+                    <li class="nav-item ml-4" id="About">
                         <a class="nav-link" asp-controller="url" asp-action="about">About</a>
                     </li>
-                    <li class="nav-item ml-4">
+                    <li class="nav-item ml-4" id="ContactMe">
                         <a class="nav-link" asp-controller="url" asp-action="contactme"> Contact Me</a>
                     </li>
                 </ul>
             </div>
             <a class="navbar-brand" href="https://github.com/nathanjukes">
-                <img src="~/images/kisspng-github-inc-repository-source-code-5b087b87b32369.7903480615272825677338.png" style="width:60px;height:60px">
+                <img src="~/images/githubLogo.png" style="width:60px;height:60px" class="embed-responsive-21by9">
             </a>
         </nav>
     </header>

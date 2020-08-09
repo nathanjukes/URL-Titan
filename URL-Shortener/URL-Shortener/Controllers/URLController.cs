@@ -63,5 +63,10 @@ namespace URL_Shortener.Controllers
         {
             return View("ContactPage");
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }

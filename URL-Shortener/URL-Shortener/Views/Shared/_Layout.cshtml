@@ -25,11 +25,17 @@
                     <li class="nav-item active ml-4" id="Home">
                         <a class="nav-link" asp-controller="url" asp-action="index"><i class="fa fa-home"></i> Home</a>
                     </li>
-                    <li class="nav-item ml-4" id="About">
-                        <a class="nav-link" asp-controller="url" asp-action="about"><i class="fa fa-info-circle"></i> About</a>
+                    <li class="nav-item ml-4" id="LinkTracking">
+                        <a class="nav-link" asp-controller="url" asp-action=""><i class="fa fa-globe"></i> Link Tracking <span class="badge badge-danger" style="font-weight:normal; opacity:0.9">Coming Soon!</span></a>
                     </li>
                     <li class="nav-item ml-4" id="ContactMe">
                         <a class="nav-link" asp-controller="url" asp-action="contactme"><i class="fa fa-address-book"></i> Contact Me</a>
+                    </li>
+                    <li class="nav-item ml-4" id="Privacy">
+                        <a class="nav-link" asp-controller="url" asp-action="privacy"><i class="fa fa-user-secret"></i> Privacy</a>
+                    </li>
+                    <li class="nav-item ml-4" id="About">
+                        <a class="nav-link" asp-controller="url" asp-action="about"><i class="fa fa-info-circle"></i> About</a>
                     </li>
                 </ul>
             </div>
@@ -45,7 +51,7 @@
 
     </main>
 
-    <footer class="footer">
+    <footer class="footer mt-4">
         <text>© @DateTime.Now.Year NathanJukes</text>
     </footer>
 </body>

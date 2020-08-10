@@ -45,20 +45,21 @@ namespace URL_Shortener.Controllers
             return View();
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var enterUrlModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, Request), HostName = URLData.GetHostname(Request) };
+            var enterUrlModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request) };
 
             return View("EnterURL", enterUrlModel);
         }
 
         [HttpPost]
-        public IActionResult UploadURL(URL url)
+        public async Task<IActionResult> UploadURL(URL url)
         {
-            Console.WriteLine(url.BaseURL + url.Id);
-            ViewData["Domain"] = URLData.GetHostname(Request);
+            url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
 
-            var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, Request) };
+            await _urlService.AddURL(_urlContext, url);
+            
+            var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request)};
 
             return View("DisplayURL", enterUrlModel);
         }

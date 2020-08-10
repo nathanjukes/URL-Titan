@@ -14,5 +14,7 @@ namespace URL_Shortener.Models
         public string BaseURL { get; set; }
 
         public string ShortenedIdentifier { get; set; }
+
+        public string ExternalIP { get; set; }
     }
 }

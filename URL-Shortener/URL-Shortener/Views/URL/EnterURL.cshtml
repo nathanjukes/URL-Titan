@@ -37,7 +37,7 @@
                         <th scope="col" style="width:25%"></th>
                     </tr>
                 </thead>
-                @foreach(URL url in Model.UserUrls.Take(5))
+                @foreach(URL url in Model.UserUrls.Reverse())
                 {
                     <tr>
                         <td>@(Model.HostName+url.ShortenedIdentifier)</td>

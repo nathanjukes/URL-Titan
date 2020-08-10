@@ -13,5 +13,12 @@ namespace URL_Shortener.Services
         {
             return urlContext.Set<URL>();
         }
+
+        public IEnumerable<URL> GetUserUrls(URLContext urlContext, Microsoft.AspNetCore.Http.HttpRequest request)
+        {
+            var userURLs = urlContext.Set<URL>();
+
+            return userURLs;
+        }
     }
 }

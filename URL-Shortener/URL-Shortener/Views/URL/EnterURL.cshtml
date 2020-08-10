@@ -1,4 +1,6 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using URL_Shortener.Models; 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model EnterURLModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "URL Titan";
@@ -21,41 +23,76 @@
     <br />
 </div>
 
+
+<div class="container align-content-center mt-3">
+    <div class="col-md-12 text-center">
+        <h3 class="text-light">Your Previous URL's</h3>
+        <table class="table table-primary table-striped table-bordered table-hover table-sm">
+            @if (Model.UserUrls.Count() > 0)
+            {
+                <thead>
+                    <tr>
+                        <th scope="col">Shortened URL</th>
+                        <th scope="col">Full URL</th>
+                        <th scope="col" style="width:25%"></th>
+                    </tr>
+                </thead>
+                @foreach(URL url in Model.UserUrls.Take(5))
+                {
+                    <tr>
+                        <td>@(Model.HostName+url.ShortenedIdentifier)</td>
+                        <td>@url.BaseURL</td>
+                        <td><span><button>Delete</button></span></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <h4 class="pt-3 text-primary">⠀No URL's Shortened 😢</h4>
+            }
+        </table>
+    </div>
+</div>
+
+
 <div class="container">
-    <div class="mt-5 bg-secondary pb-3 col-md-12" style="border-radius:0.5em">
-        <div class="container-sm text-center mt-5 pt-lg-4">
-            <div class="text-body">
-                <h2 style="font-size:35px">
-                    What is a 'URL shortener'?
-                    <small class="text-muted text-black-50" style="font-size: 23px">- And why are they so important?</small>
-                </h2>
-                <p style="font-size:20px">
-                    <br />A URL shortener is a way of condensing a long and obtrusive URL into a small, easy to share URL. It replaces long, ugly URL's with a small and neat URL that is memorable and easily recognisable.
-                </p>
+    <div class="col-md-12 text-center">
+        <h3 class="mt-5 pt-5 text-light">Information!</h3>
+        <div class=" bg-secondary pb-3 col-md-12" style="border-radius:0.5em">
+            <div class="container-sm text-center mt-3 pt-lg-4">
+                <div class="text-body">
+                    <h2 style="font-size:35px">
+                        What is a 'URL shortener'?
+                        <small class="text-muted text-black-50" style="font-size: 23px">- And why are they so important?</small>
+                    </h2>
+                    <p style="font-size:20px">
+                        <br />A URL shortener is a way of condensing a long and obtrusive URL into a small, easy to share URL. It replaces long, ugly URL's with a small and neat URL that is memorable and easily recognisable. Having a shortened URL is important as it allows for a much greater ease of access, meaning that more people will share and click it than ever before.'
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="mt-5 bg-secondary col-md-12" style="border-radius:0.5em">
-        <div class="container-sm text-center mt-2 pt-lg-4">
-            <div class="text-body">
-                <h2 style="font-size:35px">
-                    Why use a URL shortener?
-                </h2>
-                <p class="pb-4" style="font-size:20px">
-                    <br />Using a URL shortener allows for greater clarity in your links and also allows for ease of access. This ease of access gained by using a URL shortener hugely increases your efficiency when accessing links and saves time for anyone using the link.
-                </p>
+        <div class="mt-5 bg-secondary col-md-12" style="border-radius:0.5em">
+            <div class="container-sm text-center mt-2 pt-lg-4">
+                <div class="text-body">
+                    <h2 style="font-size:35px">
+                        Why use a URL shortener?
+                    </h2>
+                    <p class="pb-4" style="font-size:20px">
+                        <br />Using a URL shortener allows for greater clarity in your links and also allows for ease of access. This ease of access gained by using a URL shortener hugely increases your efficiency when accessing links and saves time for anyone using the link.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="my-5 bg-secondary col-md-12" style="border-radius:0.5em">
-        <div class="container-sm text-center mt-2 pt-lg-4">
-            <div class="text-body">
-                <h2 style="font-size:35px">
-                    When to use a URL shortener?
-                </h2>
-                <p class="pb-4" style="font-size:20px">
-                    <br />Using a URL shortener for your links should become a staple in your lifestyle, ideally most of the links you save / share should be compact. This not only helps you, it also helps your friend by not having to enter such long and obtrusive links.
-                </p>
+        <div class="my-5 bg-secondary col-md-12" style="border-radius:0.5em">
+            <div class="container-sm text-center mt-2 pt-lg-4">
+                <div class="text-body">
+                    <h2 style="font-size:35px">
+                        When to use a URL shortener?
+                    </h2>
+                    <p class="pb-4" style="font-size:20px">
+                        <br />Using a URL shortener for your links should become a staple in your lifestyle, ideally most of the links you save / share should be compact. This not only helps you, it also helps your friend by not having to enter such long and obtrusive links.
+                    </p>
+                </div>
             </div>
         </div>
     </div>

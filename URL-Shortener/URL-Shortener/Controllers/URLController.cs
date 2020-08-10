@@ -47,7 +47,9 @@ namespace URL_Shortener.Controllers
         
         public IActionResult Index()
         {
-            return View("EnterURL");
+            var enterUrlModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, Request), HostName = URLData.GetHostname(Request) };
+
+            return View("EnterURL", enterUrlModel);
         }
 
         [HttpPost]
@@ -56,7 +58,9 @@ namespace URL_Shortener.Controllers
             Console.WriteLine(url.BaseURL + url.Id);
             ViewData["Domain"] = URLData.GetHostname(Request);
 
-            return View("DisplayURL", url);
+            var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, Request) };
+
+            return View("DisplayURL", enterUrlModel);
         }
 
         public IActionResult ContactMe()

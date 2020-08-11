@@ -17,20 +17,26 @@ namespace URL_Shortener.Services
         public IEnumerable<URL> GetUserUrls(URLContext urlContext, Microsoft.AspNetCore.Http.HttpContext contextHttp)
         {
             var userURLs = urlContext.UrlSet.Where(x => x.ExternalIP == contextHttp.Connection.RemoteIpAddress.ToString()); //Ensures the same user is accessing the page by validating their IP
-            userURLs = userURLs.Skip(userURLs.Count() - 5); //Gets the last 5 entries for this user
 
             return userURLs;
         }
 
         public async Task AddURL(URLContext urlContext, URL urlToAdd)
         {
-            urlToAdd.ShortenedIdentifier = GenerateUrlID(urlContext, urlToAdd);
+            if(urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).Count() == 0)
+            {
+                urlToAdd.ShortenedIdentifier = GenerateUrlID(urlContext, urlToAdd);
 
-            Console.WriteLine($"Adding ID: {urlToAdd.ShortenedIdentifier} for website: {urlToAdd.BaseURL} for User (IP): {urlToAdd.ExternalIP} at {DateTime.Now}");
+                Console.WriteLine($"Adding ID: {urlToAdd.ShortenedIdentifier} for website: {urlToAdd.BaseURL} for User (IP): {urlToAdd.ExternalIP} at {DateTime.Now}");
 
-            await urlContext.AddAsync(urlToAdd);
+                await urlContext.AddAsync(urlToAdd);
 
-            await urlContext.SaveChangesAsync();
+                await urlContext.SaveChangesAsync();
+            }
+            else
+            {
+                urlToAdd.ShortenedIdentifier = urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).First().ShortenedIdentifier; //In case of a duplicate upload of a url
+            }
         }
 
         private string GenerateUrlID(URLContext urlContext, URL url)

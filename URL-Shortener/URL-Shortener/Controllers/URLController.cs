@@ -45,9 +45,18 @@ namespace URL_Shortener.Controllers
             return View();
         }
         
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var enterUrlModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request) };
+            var enterUrlModel = new EnterURLModel() { UrlData = null, HostName = URLData.GetHostname(Request) };
+
+            var UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext);
+
+            if(UserUrls.Count() >= 5)
+            {
+                UserUrls = UserUrls.Skip(UserUrls.Count() - 5); //Takes last 5 only
+            }
+
+            enterUrlModel.UserUrls = UserUrls;
 
             return View("EnterURL", enterUrlModel);
         }
@@ -62,6 +71,13 @@ namespace URL_Shortener.Controllers
             var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request)};
 
             return View("DisplayURL", enterUrlModel);
+        }
+
+        public IActionResult UrlList()
+        {
+            var enterURLModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };
+
+            return View("DisplayURL", enterURLModel);
         }
 
         public IActionResult ContactMe()

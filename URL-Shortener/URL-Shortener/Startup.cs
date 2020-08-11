@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using URL_Shortener.DatabaseContexts;
 using Microsoft.Extensions.Configuration;
 using URL_Shortener.Services;
+using Microsoft.AspNetCore.Routing;
 
 namespace URL_Shortener
 {
@@ -46,8 +47,14 @@ namespace URL_Shortener
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute
+                (
+                    name: "default",
+                    pattern: "{controller=Url}/{action=Index}"
+                );
             });
+
+            
         }
     }
 }

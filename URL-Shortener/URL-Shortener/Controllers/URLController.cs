@@ -73,6 +73,7 @@ namespace URL_Shortener.Controllers
             return View("DisplayURL", enterUrlModel);
         }
 
+        [ActionName("url-list")]
         public IActionResult UrlList()
         {
             var enterURLModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };

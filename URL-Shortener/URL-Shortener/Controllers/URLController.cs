@@ -40,11 +40,13 @@ namespace URL_Shortener.Controllers
         }
 
         //PATH: .../URL/About
-        public IActionResult About()
+        public IActionResult About(string t)
         {
+            Console.WriteLine(t);
             return View();
         }
-        
+
+        //PATH: .../Index or .../URL/Index (Due to default routing in startup)
         public IActionResult Index()
         {
             var enterUrlModel = new EnterURLModel() { UrlData = null, HostName = URLData.GetHostname(Request) };
@@ -61,8 +63,34 @@ namespace URL_Shortener.Controllers
             return View("EnterURL", enterUrlModel);
         }
 
+        //Path: .../{ShortenedID} 
+        [Route("{ShortenedID}")] //Different controller to return the full url rather than overloading the main index controller
+        public IActionResult ReturnBaseURL(string ShortenedID)
+        {
+            if (string.IsNullOrEmpty(ShortenedID))
+            {
+                return null;
+            }
+            else
+            {
+                try
+                {
+                    string fullURL = _urlContext.UrlSet.Where(x => x.ShortenedIdentifier == ShortenedID).First().BaseURL;
+
+                    //Log to console
+                    Console.WriteLine(ShortenedID + fullURL); //DO MORE HERE
+
+                    return Redirect(fullURL);
+                }
+                catch(InvalidOperationException) //No elements in db for that shortened ID
+                {
+                    return NotFound();
+                }
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> UploadURL(URL url)
+        public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
         {
             url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
 

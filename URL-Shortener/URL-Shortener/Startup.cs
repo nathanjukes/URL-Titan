@@ -50,11 +50,9 @@ namespace URL_Shortener
                 endpoints.MapControllerRoute
                 (
                     name: "default",
-                    pattern: "{controller=Url}/{action=Index}"
+                    pattern: "{controller=Url}/{action=Index}/{id?}"
                 );
             });
-
-            
         }
     }
 }

@@ -90,6 +90,25 @@ namespace URL_Shortener.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> DeleteURL(string shortenedID, string pageType)
+        {
+            Console.WriteLine($"Request to delete URL with shortened ID of {shortenedID} at {DateTime.Now} from {HttpContext.Connection.RemoteIpAddress}");
+
+            //Remove URL from Database
+            await _urlService.RemoveURL(_urlContext, shortenedID);
+            
+            switch(pageType) //Specifies which page to return to once the data is updated
+            {
+                case "IndexList":
+                    return RedirectToAction("Index");
+                case "FullList":
+                    return RedirectToAction("Index");
+                default:
+                    return Ok();
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
         {
             url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
@@ -100,6 +119,8 @@ namespace URL_Shortener.Controllers
 
             return View("DisplayURL", enterUrlModel);
         }
+
+        
 
         [ActionName("url-list")]
         public IActionResult UrlList()

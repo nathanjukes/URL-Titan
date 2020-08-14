@@ -39,6 +39,14 @@ namespace URL_Shortener.Services
             }
         }
 
+        public async Task RemoveURL(URLContext urlContext, string shortenedID)
+        {
+            var removeURL = urlContext.UrlSet.Single(s => s.ShortenedIdentifier == shortenedID);
+
+            urlContext.Remove(removeURL);
+            await urlContext.SaveChangesAsync();
+        }
+
         private string GenerateUrlID(URLContext urlContext, URL url)
         {
             Console.WriteLine($"Generating ID for website: {url.BaseURL} for User (IP): {url.ExternalIP} at {DateTime.Now}");

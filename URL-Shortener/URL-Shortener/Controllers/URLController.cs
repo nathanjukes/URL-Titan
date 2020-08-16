@@ -100,9 +100,10 @@ namespace URL_Shortener.Controllers
             switch(pageType) //Specifies which page to return to once the data is updated
             {
                 case "IndexList":
-                    return RedirectToAction("Index");
+                    return RedirectToAction("index");
                 case "FullList":
-                    return RedirectToAction("Index");
+                    UrlList();
+                    return RedirectToAction("url-list");
                 default:
                     return Ok();
             }
@@ -123,6 +124,7 @@ namespace URL_Shortener.Controllers
         
 
         [ActionName("url-list")]
+        [Route("url/{action}")]
         public IActionResult UrlList()
         {
             var enterURLModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };

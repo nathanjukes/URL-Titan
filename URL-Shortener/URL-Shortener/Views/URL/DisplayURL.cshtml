@@ -30,7 +30,14 @@
                         <tr>
                             <td>@(Model.HostName+url.ShortenedIdentifier)</td>
                             <td>@url.BaseURL</td>
-                            <td><span><button class="btn btn-outline-primary">Delete</button></span></td>
+
+                            @using (Html.BeginForm("DeleteURL", "url"))
+                            {
+                                @Html.Hidden("shortenedID", url.ShortenedIdentifier) <!--Passing a shortenedID parameter to the controller-->
+                                @Html.Hidden("PageType", "FullList") <!--Passing a pageType parameter to the controller-->
+
+                                <td><span><button name="shortenedID" id="btnSubmit" type="submit" class="btn btn-outline-primary">Delete</button></span></td>
+                            }
                         </tr>
                     }
                 }

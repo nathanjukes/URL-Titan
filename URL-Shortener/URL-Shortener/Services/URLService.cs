@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using URL_Shortener.Controllers;
 using URL_Shortener.DatabaseContexts;
 using URL_Shortener.Models;
 
@@ -23,7 +26,7 @@ namespace URL_Shortener.Services
 
         public async Task AddURL(URLContext urlContext, URL urlToAdd)
         {
-            if(urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).Count() == 0)
+            if (urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).Count() == 0)
             {
                 urlToAdd.ShortenedIdentifier = GenerateUrlID(urlContext, urlToAdd);
 
@@ -41,7 +44,7 @@ namespace URL_Shortener.Services
 
         public async Task RemoveURL(URLContext urlContext, string shortenedID)
         {
-            var removeURL = urlContext.UrlSet.Single(s => s.ShortenedIdentifier == shortenedID);
+            var removeURL = urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
 
             urlContext.Remove(removeURL);
             await urlContext.SaveChangesAsync();
@@ -58,9 +61,9 @@ namespace URL_Shortener.Services
             int duplicateCount = 0;
             int duplicateModifier = 1;
 
-            while(urlContext.UrlSet.Where(x => x.ShortenedIdentifier == id).Count() > 0) 
+            while (!IdValid(id) || urlContext.UrlSet.Where(x => x.ShortenedIdentifier == id).Count() > 0)
             {
-                if(duplicateCount != 0 && duplicateCount % 5 == 0)
+                if (duplicateCount != 0 && duplicateCount % 5 == 0)
                 {
                     id = Guid.NewGuid().ToString().Substring(0, 5 + duplicateModifier);
                     duplicateModifier++;
@@ -74,6 +77,21 @@ namespace URL_Shortener.Services
             }
 
             return id;
+        }
+
+        private bool IdValid(string id) //Checks that the Generated ID does not have the same name as a public Action 
+        {
+            var temp = new URLController(this, null);
+
+            foreach (var i in temp.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+            {
+                if(id.ToLower() == i.Name.ToLower())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

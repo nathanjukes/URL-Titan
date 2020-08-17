@@ -121,8 +121,6 @@ namespace URL_Shortener.Controllers
             return View("DisplayURL", enterUrlModel);
         }
 
-        
-
         [ActionName("url-list")]
         [Route("url/{action}")]
         public IActionResult UrlList()

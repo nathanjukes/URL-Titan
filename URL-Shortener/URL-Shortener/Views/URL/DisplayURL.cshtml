@@ -33,6 +33,8 @@
 
                             @using (Html.BeginForm("DeleteURL", "url"))
                             {
+                                @Html.AntiForgeryToken();
+
                                 @Html.Hidden("shortenedID", url.ShortenedIdentifier) <!--Passing a shortenedID parameter to the controller-->
                                 @Html.Hidden("PageType", "FullList") <!--Passing a pageType parameter to the controller-->
 

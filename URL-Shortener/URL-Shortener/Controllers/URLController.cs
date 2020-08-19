@@ -40,9 +40,8 @@ namespace URL_Shortener.Controllers
         }
 
         //PATH: .../URL/About
-        public IActionResult About(string t)
+        public IActionResult About()
         {
-            Console.WriteLine(t);
             return View();
         }
 

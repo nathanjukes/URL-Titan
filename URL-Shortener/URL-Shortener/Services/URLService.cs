@@ -56,7 +56,7 @@ namespace URL_Shortener.Services
 
             string id = Guid.NewGuid().ToString().Substring(0, 5);
 
-            //Ensures that the shortened id is unique, if it has to retry 5 times, another char is allowed to be present
+            //Ensures that the shortened id is unique, if it has to retry 5 times, another char is allowed to be added
 
             int duplicateCount = 0;
             int duplicateModifier = 1;

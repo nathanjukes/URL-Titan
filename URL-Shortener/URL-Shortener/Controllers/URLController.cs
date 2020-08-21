@@ -131,12 +131,24 @@ namespace URL_Shortener.Controllers
 
         public IActionResult ContactMe()
         {
-            return View("ContactPage");
+            return View("ContactPage", new ContactMeModel());
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult submitContactForm(ContactMeModel contactData)
+        {
+            if(ModelState.IsValid)
+            {
+                return Ok();
+            }
+
+            Console.WriteLine(ModelState.ErrorCount + ";;");
+
+            return View("ContactPage", contactData);
         }
     }
 }

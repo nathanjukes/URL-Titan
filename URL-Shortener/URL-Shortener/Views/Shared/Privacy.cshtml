@@ -1,7 +1,6 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Privacy";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
 
 <head>
@@ -11,4 +10,9 @@
 <script>SetActiveNav("Privacy")</script> <!--Calls the js script to set the active nav list item-->
 
 <h1>Privacy</h1>
+
+<form asp-controller="url" asp-action="submitContactForm">
+
+    <button type="submit">Click me</button>
+</form>
 

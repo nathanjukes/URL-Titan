@@ -1,4 +1,6 @@
-﻿
+﻿@using URL_Shortener.Models;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ContactMeModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "URL Titan: Contact Me";
@@ -6,9 +8,59 @@
 
 <head>
     <script src="~/js/SetActiveNavLink.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <script>SetActiveNav("ContactMe")</script> <!--Calls the js script to set the active nav list item-->
 
-<h1>ContactPage</h1>
 
+<h3 class="card-text p-3 text-light text-center"><br />Contact Me!</h3>
+
+<div class="container mt-3">
+    <div class="col-md-10 text-center offset-1">
+        <div class="bg-secondary pb-3 col-md-12" style="border-radius:0.5em">
+            <div class="container-sm text-center mt-3">
+                <form asp-controller="url" asp-action="submitContactForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mt-3">
+                            <label for="inputEmail4"><i class="fa fa-user"></i> Name</label>
+                            <input asp-for="Name" class="form-control" id="inputName" placeholder="Name" value=@Model.Name>
+                            <span asp-validation-for="Name" class="mt-2"></span>
+                        </div>
+                        <div class="form-group col-md-6 mt-3">
+                            <label for="inputPassword4"><i class="fa fa-paper-plane"></i> Email Address</label>
+                            <input asp-for="Email" type="email" class="form-control" id="inputEmail" placeholder="Email" value=@Model.Email>
+                            <span asp-validation-for="Email" class="mt-2"></span>
+                        </div>
+                    </div>
+                    <div class="form-row text-center">
+                        <div class="form-group col-lg-12 mt-1">
+                            <label for="inputState"><i class="fa fa-question-circle"></i> Subject</label>
+                            <select asp-for="Subject" id="inputState" class="form-control">
+                                <option selected>Bug</option>
+                                <option>New feature</option>
+                                <option>Site recommendation</option>
+                                <option>Encountering an issue</option>
+                                <option>Not satisfied</option>
+                                <option>My option isn't listed</option>
+                            </select>
+                            <span asp-validation-for="Subject" class="mt-2"></span>
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="inputAddress"><i class="fa fa-envelope"></i> Message:</label>
+                        <textarea asp-for="Message" type="text" class="form-control input-group-append" id="inputAddress" placeholder="Your Message" rows="4" cols="50"></textarea>
+                        <span asp-validation-for="Message" class="mt-2"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">Sign in</button>
+                    <div class="text-center mt-2">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <span class="mt-2" style="color:#c41200">Please fill in all of the available fields.</span>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

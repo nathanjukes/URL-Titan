@@ -19,16 +19,19 @@
         <form asp-controller="url" asp-action="uploadurl" method="post">
             <div class="form-group">
                 <label for="form_message" class="text-light p-3">Please input your URL beneath:</label>
-                <textarea asp-for=UrlData.BaseURL id="form_message" name="BaseURL" class="form-control" placeholder="Your URL here" rows="4" style="resize:none"></textarea>
-                <span asp-validation-for=UrlData.BaseURL>aSDasd </span>
+                <textarea asp-for=UrlData.BaseURL id="form_message" name="BaseURL" class="form-control" placeholder="Your URL here" style="resize:none" required></textarea>
                 <button class="btn btn-primary m-md-4">Get Shortened URL!</button>
+                <div>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span asp-validation-for="UrlData.BaseURL" style="color:#c41200">Please enter a valid URL.</span>
+                    }
+                </div>
             </div>
         </form>
     </div>
     <br />
 </div>
-
-
 
 <div class="container align-content-center mt-3">
     <div class="col-md-12 text-center">

@@ -11,7 +11,7 @@ namespace URL_Shortener.Models
         [Key]
         public int Id { get; set; }
 
-        [DataType(DataType.Url)]
+        [Required, Url]
         public string BaseURL { get; set; }
 
         public string ShortenedIdentifier { get; set; }

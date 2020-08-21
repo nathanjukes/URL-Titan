@@ -111,6 +111,13 @@ namespace URL_Shortener.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
         {
+            if(!ModelState.IsValid)
+            {
+                var enterURLModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };
+
+                return View("EnterURL", enterURLModel);
+            }
+
             url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
 
             await _urlService.AddURL(_urlContext, url);

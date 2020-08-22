@@ -18,11 +18,13 @@ namespace URL_Shortener.Controllers
     {
         private readonly URLService _urlService;
         private readonly URLContext _urlContext;
+        private readonly MailService _mailService;
 
-        public URLController(URLService urlService, URLContext urlContext)
+        public URLController(URLService urlService, URLContext urlContext, MailService mailService)
         {
             _urlService = urlService;
             _urlContext = urlContext;
+            _mailService = mailService;
         }
 
         //PATH: .../URL/GetData
@@ -113,7 +115,16 @@ namespace URL_Shortener.Controllers
         {
             if(!ModelState.IsValid)
             {
-                var enterURLModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };
+                var enterURLModel = new EnterURLModel() { UrlData = url, HostName = null };
+
+                var UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext);
+
+                if (UserUrls.Count() >= 5)
+                {
+                    UserUrls = UserUrls.Skip(UserUrls.Count() - 5); //Takes last 5 only
+                }
+
+                enterURLModel.UserUrls = UserUrls;
 
                 return View("EnterURL", enterURLModel);
             }
@@ -138,19 +149,20 @@ namespace URL_Shortener.Controllers
 
         public IActionResult ContactMe()
         {
+            ViewData["Valid"] = "";
+
             return View("ContactPage", new ContactMeModel());
         }
 
-        public IActionResult Privacy()
+        public IActionResult SubmitContactForm(ContactMeModel contactData)
         {
-            return View();
-        }
+            ViewData["Valid"] = "";
 
-        public IActionResult submitContactForm(ContactMeModel contactData)
-        {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Ok();
+                _mailService.SendMail(contactData);
+                ViewData["Valid"] = "true";
+                return View("ContactPage", new ContactMeModel());
             }
 
             Console.WriteLine(ModelState.ErrorCount + ";;");

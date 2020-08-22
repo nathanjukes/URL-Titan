@@ -81,7 +81,7 @@ namespace URL_Shortener.Services
 
         private bool IdValid(string id) //Checks that the Generated ID does not have the same name as a public Action 
         {
-            var temp = new URLController(this, null);
+            var temp = new URLController(this, null, null);
 
             foreach (var i in temp.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
             {

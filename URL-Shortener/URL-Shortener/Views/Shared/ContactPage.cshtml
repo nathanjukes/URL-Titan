@@ -8,11 +8,11 @@
 
 <head>
     <script src="~/js/SetActiveNavLink.js"></script>
+    <script src="~/js/ClearForm.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <script>SetActiveNav("ContactMe")</script> <!--Calls the js script to set the active nav list item-->
-
 
 <h3 class="card-text p-3 text-light text-center"><br />Contact Me!</h3>
 
@@ -28,16 +28,16 @@
                             <span asp-validation-for="Name" class="mt-2"></span>
                         </div>
                         <div class="form-group col-md-6 mt-3">
-                            <label for="inputPassword4"><i class="fa fa-paper-plane"></i> Email Address</label>
+                            <label for="inputPassword4"><i class="fa fa-paper-plane"></i> Email Address (If you want a response)</label>
                             <input asp-for="Email" type="email" class="form-control" id="inputEmail" placeholder="Email" value=@Model.Email>
-                            <span asp-validation-for="Email" class="mt-2"></span>
                         </div>
                     </div>
                     <div class="form-row text-center">
                         <div class="form-group col-lg-12 mt-1">
                             <label for="inputState"><i class="fa fa-question-circle"></i> Subject</label>
-                            <select asp-for="Subject" id="inputState" class="form-control">
-                                <option selected>Bug</option>
+                            <select asp-for="Subject" id="inputSubject" class="form-control">
+                                <option selected disabled hidden id="Default" value="Default"></option>
+                                <option>Bug</option>
                                 <option>New feature</option>
                                 <option>Site recommendation</option>
                                 <option>Encountering an issue</option>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group mt-2">
                         <label for="inputAddress"><i class="fa fa-envelope"></i> Message:</label>
-                        <textarea asp-for="Message" type="text" class="form-control input-group-append" id="inputAddress" placeholder="Your Message" rows="4" cols="50"></textarea>
+                        <textarea asp-for="Message" type="text" class="form-control input-group-append" id="inputMessage" placeholder="Your Message" rows="4" cols="50"></textarea>
                         <span asp-validation-for="Message" class="mt-2"></span>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4">Send Message</button>
@@ -58,9 +58,16 @@
                         {
                             <span class="mt-2" style="color:#c41200">Please fill in all of the available fields.</span>
                         }
+                        else if (ViewData["Valid"].ToString() == "true") 
+                        {
+                            <h4 class="mt-0 pt-1" style="color:#1EDB2B">Message Sent!</h4>
+                        }
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>ClearTextArea("inputMessage")</script>
+<script>SetSelectToDefault("inputSubject")</script>

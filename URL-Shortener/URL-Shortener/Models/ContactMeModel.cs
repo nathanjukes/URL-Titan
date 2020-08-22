@@ -8,7 +8,7 @@ namespace URL_Shortener.Models
         [Required]
         public string Name { get; set; }
 
-        [Required, EmailAddress]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

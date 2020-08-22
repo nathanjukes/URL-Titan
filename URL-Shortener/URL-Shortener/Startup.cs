@@ -33,6 +33,8 @@ namespace URL_Shortener
             services.AddDbContext<URLContext>(options => options.UseMySQL(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<URLService>();
+
+            services.AddSingleton<MailService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -76,7 +76,7 @@ namespace URL_Shortener.Controllers
             {
                 try
                 {
-                    string fullURL = _urlContext.UrlSet.Where(x => x.ShortenedIdentifier == ShortenedID).First().BaseURL;
+                    string fullURL = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == ShortenedID).BaseURL;
 
                     //Log to console
                     Console.WriteLine(ShortenedID + fullURL); //DO MORE HERE

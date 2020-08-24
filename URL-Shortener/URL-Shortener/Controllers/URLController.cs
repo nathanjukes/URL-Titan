@@ -13,7 +13,7 @@ using URL_Shortener.HelperClasses;
 
 namespace URL_Shortener.Controllers
 {
-    //PATH: .../URL
+    //GET: .../URL
     public class URLController : Controller
     {
         private readonly URLService _urlService;
@@ -27,27 +27,13 @@ namespace URL_Shortener.Controllers
             _mailService = mailService;
         }
 
-        //PATH: .../URL/GetData
-        public IEnumerable<URL> GetData()
-        {
-            return _urlService.GetAllURLs(_urlContext);
-        }
-
-        //PATH: .../URL/Test
-        public IActionResult Test()
-        {
-            var e = new URL { BaseURL = "ddhello" };
-
-            return View(e);
-        }
-
-        //PATH: .../URL/About
+        //GET: .../URL/About
         public IActionResult About()
         {
             return View();
         }
 
-        //PATH: .../Index or .../URL/Index (Due to default routing in startup)
+        //GET: .../Index or .../URL/Index (Due to default routing in startup)
         public IActionResult Index()
         {
             var enterUrlModel = new EnterURLModel() { UrlData = null, HostName = URLData.GetHostname(Request) };
@@ -64,8 +50,8 @@ namespace URL_Shortener.Controllers
             return View("EnterURL", enterUrlModel);
         }
 
-        //Path: .../{ShortenedID} 
-        [Route("{ShortenedID}")] //Different controller to return the full url rather than overloading the main index controller
+        //GET: .../{ShortenedID} 
+        [Route("{ShortenedID}")] //Different controller to return the full url rather than overwriting the main index controller
         public IActionResult ReturnBaseURL(string ShortenedID)
         {
             if (string.IsNullOrEmpty(ShortenedID))
@@ -90,7 +76,9 @@ namespace URL_Shortener.Controllers
             }
         }
 
+        //POST: .../DeleteURL
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteURL(string shortenedID, string pageType)
         {
             Console.WriteLine($"Request to delete URL with shortened ID of {shortenedID} at {DateTime.Now} from {HttpContext.Connection.RemoteIpAddress}");
@@ -110,7 +98,9 @@ namespace URL_Shortener.Controllers
             }
         }
 
+        //POST: .../UploadURL
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
         {
             if(!ModelState.IsValid)
@@ -138,6 +128,7 @@ namespace URL_Shortener.Controllers
             return View("DisplayURL", enterUrlModel);
         }
 
+        //GET: .../url-list
         [ActionName("url-list")]
         [Route("url/{action}")]
         public IActionResult UrlList()
@@ -147,6 +138,7 @@ namespace URL_Shortener.Controllers
             return View("DisplayURL", enterURLModel);
         }
 
+        //GET: .../ContactMe
         public IActionResult ContactMe()
         {
             ViewData["Valid"] = "";
@@ -154,6 +146,9 @@ namespace URL_Shortener.Controllers
             return View("ContactPage", new ContactMeModel());
         }
 
+        //POST: .../SubmitContactForm
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SubmitContactForm(ContactMeModel contactData)
         {
             ViewData["Valid"] = "";

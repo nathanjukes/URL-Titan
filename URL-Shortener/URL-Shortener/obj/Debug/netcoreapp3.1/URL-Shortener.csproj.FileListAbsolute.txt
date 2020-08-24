@@ -150,7 +150,6 @@ E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netco
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.RazorCoreGenerate.cache
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.RazorTargetAssemblyInfo.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.Views.pdb
-E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\URL\Test.cshtml.g.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\About.cshtml.g.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\bin\Debug\netcoreapp3.1\libman.json
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -430,5 +429,5 @@ E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netco
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.MvcApplicationPartsAssemblyInfo.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.MvcApplicationPartsAssemblyInfo.cache
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ContactPage.cshtml.g.cs
-E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Privacy.cshtml.g.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\bin\Debug\netcoreapp3.1\web.config
+E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Api.cshtml.g.cs

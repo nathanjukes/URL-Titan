@@ -12,11 +12,6 @@ namespace URL_Shortener.Services
 {
     public class URLService
     {
-        public IEnumerable<URL> GetAllURLs(URLContext urlContext)
-        {
-            return urlContext.Set<URL>();
-        }
-
         public IEnumerable<URL> GetUserUrls(URLContext urlContext, Microsoft.AspNetCore.Http.HttpContext contextHttp)
         {
             var userURLs = urlContext.UrlSet.Where(x => x.ExternalIP == contextHttp.Connection.RemoteIpAddress.ToString()); //Ensures the same user is accessing the page by validating their IP

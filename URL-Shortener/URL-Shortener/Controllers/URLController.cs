@@ -37,7 +37,6 @@ namespace URL_Shortener.Controllers
         public IActionResult Index()
         {
             var enterUrlModel = new EnterURLModel() { UrlData = null, HostName = URLData.GetHostname(Request) };
-
             var UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext);
 
             if(UserUrls.Count() >= 5)
@@ -91,7 +90,6 @@ namespace URL_Shortener.Controllers
                 case "IndexList":
                     return RedirectToAction("index");
                 case "FullList":
-                    UrlList();
                     return RedirectToAction("url-list");
                 default:
                     return Ok();
@@ -103,10 +101,9 @@ namespace URL_Shortener.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var enterURLModel = new EnterURLModel() { UrlData = url, HostName = null };
-
                 var UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext);
 
                 if (UserUrls.Count() >= 5)

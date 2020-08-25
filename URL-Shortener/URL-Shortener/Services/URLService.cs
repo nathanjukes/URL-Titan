@@ -56,7 +56,7 @@ namespace URL_Shortener.Services
             int duplicateCount = 0;
             int duplicateModifier = 1;
 
-            while (!IdValid(id) || urlContext.UrlSet.Where(x => x.ShortenedIdentifier == id).Count() > 0)
+            while (!IsIdValid(id) || urlContext.UrlSet.Where(x => x.ShortenedIdentifier == id).Count() > 0)
             {
                 if (duplicateCount != 0 && duplicateCount % 5 == 0)
                 {
@@ -74,7 +74,7 @@ namespace URL_Shortener.Services
             return id;
         }
 
-        private bool IdValid(string id) //Checks that the Generated ID does not have the same name as a public Action 
+        private bool IsIdValid(string id) //Checks that the Generated ID does not have the same name as a public Action 
         {
             var temp = new URLController(this, null, null);
 

@@ -63,9 +63,6 @@ namespace URL_Shortener.Controllers
                 {
                     string fullURL = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == ShortenedID).BaseURL;
 
-                    //Log to console
-                    Console.WriteLine(ShortenedID + fullURL); //DO MORE HERE
-
                     return Redirect(fullURL);
                 }
                 catch(InvalidOperationException) //No elements in db for that shortened ID

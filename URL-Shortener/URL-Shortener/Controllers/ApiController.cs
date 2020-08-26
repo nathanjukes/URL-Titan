@@ -28,7 +28,7 @@ namespace URL_Shortener.Controllers
         // GET: ApiController
         public ActionResult Index()
         {
-            return View("About");
+            return View("Api");
         }
 
         [ValidateAntiForgeryToken]
@@ -102,6 +102,32 @@ namespace URL_Shortener.Controllers
                     return StatusCode(500);
                 }
             }
+        }
+
+        //POST: .../ShortenCollection
+        [HttpPost]
+        public async Task<IActionResult> ShortenCollection([FromBody] IEnumerable<string> UrlList)
+        {
+            if (UrlList == null || UrlList.Count() == 0) return StatusCode(400);
+
+            List<string> returnList = new List<string>();
+
+            foreach(var baseUrl in UrlList)
+            {
+                if(Uri.IsWellFormedUriString(baseUrl, UriKind.Absolute))
+                {
+                    var urlToAdd = new URL { BaseURL = baseUrl };
+                    await _urlService.AddURL(_urlContext, urlToAdd);
+
+                    returnList.Add(URLData.GetHostname(Request) + urlToAdd.ShortenedIdentifier);
+                }
+                else
+                {
+                    returnList.Add("");
+                }
+            }
+
+            return Ok(returnList);
         }
 
         //Shorten a URL

@@ -4,4 +4,36 @@
     ViewData["Title"] = "URL Titan: API Docs";
 }
 
-<h1>API DOC</h1>
+<div class="container mt-3 text-center">
+    <h1 class="text-white pt-4">URL-Titan  API  Documentation v1.0</h1>
+    <label class="text-white-50 pb-3">Click the Endpoint to see more info!</label>
+    <div>
+        <table class="table text-white mt-4 table-hover text-left" cellspacing="5">
+            <thead class="text-primary" style="font-weight:bold">
+                <tr>
+                    <th scope="col">METHOD</th>
+                    <th scope="col">ENDPOINT</th>
+                    <th scope="col">USAGE</th>
+                    <th scope="col">ADDED</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-white" style="font-weight:bold" scope="row">POST</td>
+                    <td class="text-primary"><a asp-controller="api" asp-action="index">/Api/ShortenURL</a></td>
+                    <td class="text-white">Takes a full URL and returns a shortened version</td>
+                    <td class="text-white">25/08/2020</td>
+                </tr>
+                <tr>
+                    <td class="text-white" style="font-weight:bold" scope="row">GET</td>
+                    <td class="text-primary">/Api/GetFullUrl</td>
+                    <td class="text-white">Returns the full URL for a given shortened URL</td>
+                    <td class="text-white">26/08/2020</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="https://GitHub.com/nathanjukes/stargazers/"><img style="width:auto; height:auto" src="https://img.shields.io/github/stars/nathanjukes/Url-Shortener?style=social&label=Star&maxAge=2592000"/></a>
+    </div>
+</div>
+

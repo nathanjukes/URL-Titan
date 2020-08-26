@@ -88,5 +88,18 @@ namespace URL_Shortener.Services
 
             return true;
         }
+
+        public string ReturnBaseUrl(URLContext urlContext, string shortId)
+        {
+            try
+            {
+                string baseUrl = urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortId).BaseURL;
+                return baseUrl;
+            }
+            catch(InvalidOperationException)
+            {
+                return "404";
+            }
+        }
     }
 }

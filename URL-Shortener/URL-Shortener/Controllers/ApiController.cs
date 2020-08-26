@@ -37,6 +37,7 @@ namespace URL_Shortener.Controllers
             return View();
         }
 
+        //POST: .../ShortenURL
         [HttpPost]
         public async Task<IActionResult> ShortenURL(string BaseURL)
         {
@@ -60,7 +61,7 @@ namespace URL_Shortener.Controllers
             if(!string.IsNullOrEmpty(urlToAdd.ShortenedIdentifier)) //Final check to see if the action is about to return a null value
             {
                 var returnObject = new { shortenedURL = URLData.GetHostname(Request) + urlToAdd.ShortenedIdentifier }; //Creates object with all of the data needing to be returned
-                var returnData = JsonConvert.SerializeObject(returnObject); //Serializes the object (Second layer to prevent returning a pure object)
+                string returnData = JsonConvert.SerializeObject(returnObject); //Serializes the object (Second layer to prevent returning a pure object)
 
                 return Ok(returnData);
             }
@@ -70,10 +71,45 @@ namespace URL_Shortener.Controllers
             }     
         }
 
+        //GET: .../GetFullUrl
+        [HttpGet]
+        public IActionResult GetFullUrl(string ShortURL)
+        {
+            if(string.IsNullOrEmpty(ShortURL))
+            {
+                return StatusCode(400); //Bad request
+            }
+            else
+            {
+                var splitUrl = ShortURL.Split('/');
+                string shortId = splitUrl[splitUrl.Length - 1];
+
+                string baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortId);
+
+                if(baseUrl != null && baseUrl != "404")
+                {
+                    var returnObject = new { baseUrl = baseUrl, shortenedURL = ShortURL };
+                    string returnData = JsonConvert.SerializeObject(returnObject);
+
+                    return Ok(returnData);
+                }
+                else if(baseUrl == "404")
+                {
+                    return StatusCode(404);
+                }
+                else
+                {
+                    return StatusCode(500);
+                }
+            }
+        }
+
         //Shorten a URL
         //Return a URL based on a given ID / URL
         //Shorten a collection of URLs
         //Return amount of uses for the given shortened url
         //Return all url stats
+
+        //Add 'formulate return data' method in service
     }
 }

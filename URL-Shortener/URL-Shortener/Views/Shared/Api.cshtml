@@ -1,7 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "URL Titan: API Docs";
+    ViewData["Title"] = "URL Titan: API";
 }
 
 <div class="container mt-3 text-center">
@@ -30,10 +30,26 @@
                     <td class="text-white">Returns the full URL for a given shortened URL</td>
                     <td class="text-white">26/08/2020</td>
                 </tr>
+                <tr>
+                    <td class="text-white" style="font-weight:bold" scope="row">POST</td>
+                    <td class="text-primary">/Api/ShortenCollection</td>
+                    <td class="text-white">Takes an array of URLs and returns an array of shortened URLs</td>
+                    <td class="text-white">26/08/2020</td>
+                </tr>
+                <tr>
+                    <td class="text-white" style="font-weight:bold" scope="row">GET</td>
+                    <td class="text-primary">/Api/GetUrlUses</td>
+                    <td class="text-white">Gets the total amount of uses for a given shortened URL</td>
+                    <td class="text-white">27/08/2020</td>
+                </tr>
+                <tr>
+                    <td class="text-white" style="font-weight:bold" scope="row">GET</td>
+                    <td class="text-primary">/Api/GetUrlStats</td>
+                    <td class="text-white">Gets the full stats for a given shortened URL</td>
+                    <td class="text-white">27/08/2020</td>
+                </tr>
             </tbody>
         </table>
-
-        <a href="https://GitHub.com/nathanjukes/stargazers/"><img style="width:auto; height:auto" src="https://img.shields.io/github/stars/nathanjukes/Url-Shortener?style=social&label=Star&maxAge=2592000"/></a>
+        <label class="text-white-50 mt-5 pb-2">Please note: This entire project is hosted on a Raspberry Pi and may be subject to downtime for maintenance. In addition to this, it is not the most powerful server so please be cautious with the amount of calls you make to ensure that I can keep running URL-Titan. 😄</label>
     </div>
 </div>
-

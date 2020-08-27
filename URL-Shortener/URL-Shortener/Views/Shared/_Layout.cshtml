@@ -47,10 +47,16 @@
 
         @RenderBody()
 
+        <!--Star on Github badge - Floats at the bottom of every page-->
+        <div class="text-center mt-4  pb-3">
+            <a href="https://GitHub.com/nathanjukes/stargazers/"><img style="width:86px; height:22px" src="https://img.shields.io/github/stars/nathanjukes/Sorting-Algorithm-Visualisation-Tool?style=social&label=Star&maxAge=2592000" /></a>
+            <a class="ml-2" asp-controller="api" asp-action="index" style="text-decoration:underline"> URL-Titan API!</a>
+        </div>
+
     </main>
 
     <footer class="footer mt-4">
-        <text>© @DateTime.Now.Year NathanJukes</text>
+        <text class="float-left">© @DateTime.Now.Year NathanJukes</text>
     </footer>
 </body>
 </html>

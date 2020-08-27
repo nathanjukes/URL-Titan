@@ -36,17 +36,17 @@
 <div class="container align-content-center mt-3">
     <div class="col-md-12 text-center">
         <h3 class="text-light pb-2">Your Previous 5 URL's</h3>
-        <table class="table table-primary table-striped table-bordered table-hover table-sm">
             @if (Model.UserUrls.Count() > 0)
             {
-                <thead>
-                    <tr>
-                        <th scope="col">Shortened URL</th>
-                        <th scope="col">Full URL</th>
-                        <th scope="col" style="width:25%; text-align:right"><a asp-controller="url" asp-action="url-list">See Full List</a></th>
-                    </tr>
-                </thead>
-                @foreach (URL url in Model.UserUrls.Reverse())
+                <table class="table table-primary table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Shortened URL</th>
+                            <th scope="col">Full URL</th>
+                            <th scope="col" style="width:25%; text-align:right"><a asp-controller="url" asp-action="url-list">See Full List</a></th>
+                        </tr>
+                    </thead>
+               @foreach (URL url in Model.UserUrls.Reverse())
                 {
                     <tr>
                         <td>@(Model.HostName + url.ShortenedIdentifier)</td>
@@ -63,12 +63,12 @@
                         }
                     </tr>
                 }
-            }
-            else
-            {
-                <h4 class="pt-3 text-primary">⠀No URL's Shortened 😢</h4>
-            }
-        </table>
+                </table>
+        }
+        else
+        {
+            <h4 class="pt-3 text-primary">⠀No URL's Shortened 😢</h4>
+        }
     </div>
 </div>
 

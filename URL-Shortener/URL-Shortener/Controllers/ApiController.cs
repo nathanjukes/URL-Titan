@@ -130,6 +130,27 @@ namespace URL_Shortener.Controllers
             return Ok(returnList);
         }
 
+        [HttpGet]
+        public IActionResult GetUrlUses(string ShortenedUrl)
+        {
+            string[] splitUrl = ShortenedUrl.Split('/');
+            string shortenedID = splitUrl[splitUrl.Length - 1];
+
+            try
+            {
+                URL url = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
+
+                var returnObject = new { useCount = _urlService.GetUrlTotalUses(_urlContext, url), baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID), shortenedURL = ShortenedUrl };
+                string returnData = JsonConvert.SerializeObject(returnObject);
+
+                return Ok(returnObject);
+            }
+            catch(InvalidOperationException)
+            {
+                return StatusCode(400);
+            }
+        }
+
         //Shorten a URL
         //Return a URL based on a given ID / URL
         //Shorten a collection of URLs

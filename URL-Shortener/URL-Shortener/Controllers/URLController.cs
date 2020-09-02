@@ -161,7 +161,7 @@ namespace URL_Shortener.Controllers
                 _mailService.SendMail(contactData);
                 ViewData["Valid"] = "true";
                 return View("ContactPage", new ContactMeModel());
-            }
+            }   
 
             return View("ContactPage", contactData);
         }

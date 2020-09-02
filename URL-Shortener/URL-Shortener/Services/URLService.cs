@@ -137,6 +137,20 @@ namespace URL_Shortener.Services
             await urlContext.SaveChangesAsync();
         }
 
+        public int GetUrlTotalUses(URLContext urlContext, URL url)
+        {
+            IEnumerable<User> urlUsers = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+
+            int count = 0;
+
+            foreach(var i in urlUsers)
+            {
+                count += i.UseCount;
+            }
+
+            return count;
+        }
+
         private User CreateUser(string ipAddress, URL parentUrl)
         {
             User returnUser = new User()

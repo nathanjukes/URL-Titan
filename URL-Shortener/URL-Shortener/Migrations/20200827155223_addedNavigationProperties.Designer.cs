@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using URL_Shortener.DatabaseContexts;
 
 namespace URL_Shortener.Migrations
 {
     [DbContext(typeof(URLContext))]
-    partial class URLContextModelSnapshot : ModelSnapshot
+    [Migration("20200827155223_addedNavigationProperties")]
+    partial class addedNavigationProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +71,7 @@ namespace URL_Shortener.Migrations
 
                     b.HasIndex("UrlEntityId");
 
-                    b.ToTable("UserSet");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("URL_Shortener.Models.User", b =>

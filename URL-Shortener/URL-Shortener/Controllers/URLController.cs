@@ -61,9 +61,18 @@ namespace URL_Shortener.Controllers
             {
                 try
                 {
-                    string fullURL = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == ShortenedID).BaseURL;
+                    URL fullURL = _urlService.ReturnUrlModel(_urlContext, ShortenedID);
 
-                    return Redirect(fullURL);
+                    if(fullURL != null && fullURL.BaseURL != null)
+                    {
+                        _urlService.UpdateUrlUsers(_urlContext, Request, fullURL); //Updating user set for this URL and URL stats
+
+                        return Redirect(fullURL.BaseURL);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 catch(InvalidOperationException) //No elements in db for that shortened ID
                 {
@@ -153,8 +162,6 @@ namespace URL_Shortener.Controllers
                 ViewData["Valid"] = "true";
                 return View("ContactPage", new ContactMeModel());
             }
-
-            Console.WriteLine(ModelState.ErrorCount + ";;");
 
             return View("ContactPage", contactData);
         }

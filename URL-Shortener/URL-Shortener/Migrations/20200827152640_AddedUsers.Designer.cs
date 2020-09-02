@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using URL_Shortener.DatabaseContexts;
 
 namespace URL_Shortener.Migrations
 {
     [DbContext(typeof(URLContext))]
-    partial class URLContextModelSnapshot : ModelSnapshot
+    [Migration("20200827152640_AddedUsers")]
+    partial class AddedUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,10 +58,7 @@ namespace URL_Shortener.Migrations
                     b.Property<DateTime>("LastUsedTime")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("UrlEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UrlFK")
+                    b.Property<int?>("URLId")
                         .HasColumnType("int");
 
                     b.Property<int>("UseCount")
@@ -67,16 +66,16 @@ namespace URL_Shortener.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UrlEntityId");
+                    b.HasIndex("URLId");
 
-                    b.ToTable("UserSet");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("URL_Shortener.Models.User", b =>
                 {
-                    b.HasOne("URL_Shortener.Models.URL", "UrlEntity")
+                    b.HasOne("URL_Shortener.Models.URL", null)
                         .WithMany("Users")
-                        .HasForeignKey("UrlEntityId");
+                        .HasForeignKey("URLId");
                 });
 #pragma warning restore 612, 618
         }

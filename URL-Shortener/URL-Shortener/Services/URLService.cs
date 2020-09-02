@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CSharp.RuntimeBinder;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using URL_Shortener.Controllers;
@@ -27,8 +33,7 @@ namespace URL_Shortener.Services
 
                 Console.WriteLine($"Adding ID: {urlToAdd.ShortenedIdentifier} for website: {urlToAdd.BaseURL} for User (IP): {urlToAdd.ExternalIP} at {DateTime.Now}");
 
-                await urlContext.AddAsync(urlToAdd);
-
+                await urlContext.UrlSet.AddAsync(urlToAdd);
                 await urlContext.SaveChangesAsync();
             }
             else
@@ -99,6 +104,80 @@ namespace URL_Shortener.Services
             catch(InvalidOperationException)
             {
                 return "404";
+            }
+        }
+
+        //Returns the URL from a given short ID
+        public URL ReturnUrlModel(URLContext urlContext, string shortId) => urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortId);
+
+        public async Task UpdateUrlUsers(URLContext urlContext, HttpRequest request, URL url)
+        {
+            string userIpAddress = request.HttpContext.Connection.RemoteIpAddress.ToString();
+            User retrievedUser;
+
+            //Get user object for this url and this IP address - if it doesn't exist, create it
+            try
+            {
+                retrievedUser = urlContext.UserSet.Single(x => x.IpAddress == userIpAddress);
+            }
+            catch(InvalidOperationException)
+            {
+                User newUser = CreateUser(userIpAddress, url);
+
+                await urlContext.UserSet.AddAsync(newUser);
+                await urlContext.SaveChangesAsync();
+
+                return;
+            }
+
+            //If retrieved user exists Update it
+            retrievedUser.LastUsedTime = DateTime.Now;
+            retrievedUser.UseCount += 1;
+
+            await urlContext.SaveChangesAsync();
+        }
+
+        private User CreateUser(string ipAddress, URL parentUrl)
+        {
+            User returnUser = new User()
+            {
+                IpAddress = ipAddress,
+                DateInitialised = DateTime.Now,
+                LastUsedTime = DateTime.Now,
+                UseCount = 1,
+                UrlEntity = parentUrl,
+                UrlFK = parentUrl.Id,
+                CountryCode = GetCountryCode(ipAddress)
+            };
+
+            return returnUser;
+        }
+
+        private string GetCountryCode(string ipAddress)
+        {
+            const string lookupApiURL = "http://ip-api.com/json/";
+
+            WebClient wc = new WebClient();
+
+            string jsonData = wc.DownloadString(lookupApiURL + ipAddress);
+
+            var jsonObject = JsonConvert.DeserializeObject<dynamic>(jsonData);
+
+            try
+            {
+                if (jsonObject.status == "success")
+                {
+                    Console.WriteLine(jsonObject.countryCode);
+                    return jsonObject.countryCode;
+                }
+                else
+                {
+                    return "GB"; //CHANGE THIS IN OFFICIAL BUILD
+                }
+            }
+            catch(RuntimeBinderException) //Property doesn't exist
+            {
+                return "GB"; //CHANGE THIS IN OFFICIAL BUILD
             }
         }
     }

@@ -17,5 +17,9 @@ namespace URL_Shortener.Models
         public string ShortenedIdentifier { get; set; }
 
         public string ExternalIP { get; set; }
+
+        //public int TotalUses { get; set; } REPLACED BY GETTING ALL USERS FOR THIS URL AND SUMMING THE USE COUNT
+
+        public ICollection<User> Users { get; set; }
     }
 }

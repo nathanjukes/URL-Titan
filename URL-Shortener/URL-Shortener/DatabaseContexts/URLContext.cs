@@ -12,5 +12,7 @@ namespace URL_Shortener.DatabaseContexts
         public URLContext(DbContextOptions<URLContext> options) : base(options) { }
 
         public DbSet<URL> UrlSet { get; set; }
+
+        public DbSet<User> UserSet { get; set; }
     }
 }

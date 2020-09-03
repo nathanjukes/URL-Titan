@@ -182,7 +182,6 @@ namespace URL_Shortener.Services
             {
                 if (jsonObject.status == "success")
                 {
-                    Console.WriteLine(jsonObject.countryCode);
                     return jsonObject.countryCode;
                 }
                 else

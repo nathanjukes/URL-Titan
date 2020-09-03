@@ -27,7 +27,7 @@ namespace URL_Shortener.Controllers
         }
 
         // GET: ApiController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View("Api");
         }

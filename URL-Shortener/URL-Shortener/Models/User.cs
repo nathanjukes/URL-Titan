@@ -12,6 +12,7 @@ namespace URL_Shortener.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string IpAddress { get; set; }
 
         public string CountryCode { get; set; }

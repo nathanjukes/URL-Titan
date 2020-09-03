@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto.Tls;
 using URL_Shortener.DatabaseContexts;
 using URL_Shortener.HelperClasses;
 using URL_Shortener.Models;
@@ -60,7 +61,7 @@ namespace URL_Shortener.Controllers
             
             if(!string.IsNullOrEmpty(urlToAdd.ShortenedIdentifier)) //Final check to see if the action is about to return a null value
             {
-                var returnObject = new { shortenedURL = URLData.GetHostname(Request) + urlToAdd.ShortenedIdentifier }; //Creates object with all of the data needing to be returned
+                var returnObject = new { shortenedUrl = URLData.GetHostname(Request) + urlToAdd.ShortenedIdentifier }; //Creates object with all of the data needing to be returned
                 string returnData = JsonConvert.SerializeObject(returnObject); //Serializes the object (Second layer to prevent returning a pure object)
 
                 return Ok(returnData);
@@ -88,7 +89,7 @@ namespace URL_Shortener.Controllers
 
                 if(baseUrl != null && baseUrl != "404")
                 {
-                    var returnObject = new { baseUrl = baseUrl, shortenedURL = ShortURL };
+                    var returnObject = new { baseUrl = baseUrl, shortenedUrl = ShortURL };
                     string returnData = JsonConvert.SerializeObject(returnObject);
 
                     return Ok(returnData);
@@ -133,6 +134,8 @@ namespace URL_Shortener.Controllers
         [HttpGet]
         public IActionResult GetUrlUses(string ShortenedUrl)
         {
+            if (string.IsNullOrEmpty(ShortenedUrl)) return StatusCode(400);
+
             string[] splitUrl = ShortenedUrl.Split('/');
             string shortenedID = splitUrl[splitUrl.Length - 1];
 
@@ -140,7 +143,7 @@ namespace URL_Shortener.Controllers
             {
                 URL url = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
 
-                var returnObject = new { useCount = _urlService.GetUrlTotalUses(_urlContext, url), baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID), shortenedURL = ShortenedUrl };
+                var returnObject = new { useCount = _urlService.GetUrlTotalUses(_urlContext, url), baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID), shortenedUrl = ShortenedUrl };
                 string returnData = JsonConvert.SerializeObject(returnObject);
 
                 return Ok(returnObject);
@@ -151,12 +154,37 @@ namespace URL_Shortener.Controllers
             }
         }
 
-        //Shorten a URL
-        //Return a URL based on a given ID / URL
-        //Shorten a collection of URLs
-        //Return amount of uses for the given shortened url
-        //Return all url stats
+        [HttpGet]
+        public IActionResult GetUrlStats(string ShortenedUrl)
+        {
+            if (string.IsNullOrEmpty(ShortenedUrl)) return StatusCode(400);
 
-        //Add 'formulate return data' method in service
+            string[] splitUrl = ShortenedUrl.Split('/');
+            string shortenedID = splitUrl[splitUrl.Length - 1];
+
+            try
+            {
+                URL url = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
+
+                //Creating the object to return to the user
+                var returnObject = new
+                {
+                    baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID),
+                    shortenedUrl = ShortenedUrl,
+                    useCount = _urlService.GetUrlTotalUses(_urlContext, url),
+                    countries = _urlService.GetUrlCountries(_urlContext, url),
+                    lastTimeAccessed = _urlService.GetLastAccessTime(_urlContext, url),
+                    lastCountryAccessed = _urlService.GetLastCountryAccessed(_urlContext, url),
+                };
+
+                string returnData = JsonConvert.SerializeObject(returnObject);
+
+                return Ok(returnData);
+            }
+            catch(NullReferenceException)
+            {
+                return StatusCode(400);
+            }
+        }
     }
 }

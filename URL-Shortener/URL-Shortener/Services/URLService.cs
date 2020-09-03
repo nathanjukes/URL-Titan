@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using URL_Shortener.Controllers;
 using URL_Shortener.DatabaseContexts;
@@ -189,10 +190,55 @@ namespace URL_Shortener.Services
                     return "GB"; //CHANGE THIS IN OFFICIAL BUILD
                 }
             }
-            catch(RuntimeBinderException) //Property doesn't exist
+            catch(RuntimeBinderException) //Property doesn't exist exception
             {
                 return "GB"; //CHANGE THIS IN OFFICIAL BUILD
             }
+        }
+
+        public Dictionary<string, int> GetUrlCountries(URLContext urlContext, URL url)
+        {
+            var countryData = new Dictionary<string, int>();
+
+            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+
+            foreach(var i in users)
+            {
+                if(!countryData.ContainsKey(i.CountryCode))
+                {
+                    countryData.Add(i.CountryCode, i.UseCount);
+                }
+                else
+                {
+                    countryData[i.CountryCode] += i.UseCount;
+                }
+            }
+
+            return countryData;
+        }
+
+        public DateTime? GetLastAccessTime(URLContext urlContext, URL url)
+        {
+            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
+
+            if (users != null && users.Count() != 0)
+            {
+                return users.First().LastUsedTime;
+            }
+
+            return null;
+        }
+        
+        public string GetLastCountryAccessed(URLContext urlContext, URL url)
+        {
+            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
+
+            if (users != null && users.Count() != 0)
+            {
+                return users.First().CountryCode;
+            }
+
+            return null;
         }
     }
 }

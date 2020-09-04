@@ -1,0 +1,72 @@
+﻿@model URL_Shortener.Models.DocsModel
+@{
+    ViewData["Title"] = "URL Titan: API - ShortenURL";
+    Layout = "_Layout";
+}
+
+<div>
+    <div class="container mt-3 text-center">
+        <h1 class="text-white pt-4">ShortenURL Endpoint</h1>
+        <label class="text-white-50 pb-3">Lets you POST a URL and get a shortened URL returned</label>
+    </div>
+    <div class="container mt-3 text-center float-left">
+        <div class="container col-sm-10 offset-2">
+            <table class="table text-white mt-4 text-left">
+                <tbody>
+                    <tr>
+                        <th class="text-primary">Description</th>
+                        <td>Shortens a given URL</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Endpoint</th>
+                        <td>/Api/ShortenURL</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">HTTP Method</th>
+                        <td>POST</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Authorization</th>
+                        <td>No authorization required</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Request Limit</th>
+                        <td>∞</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="float-left">
+        <div class="container col-sm-12 mt-4 pt-3 text-center">
+            <h2 class="text-white">Example Request</h2>
+            <div class="text-left" style="background-color:#1b1f22; border-radius:0.4em;">
+                <label class="my-3 mx-4 px-3">
+                    <code class="text-white" style="font-size:medium;">
+                        GET @(Model.HostName)api/shorten-url
+                        <br /><br />
+                        Required Body Parameters: <br />"BaseURL" : YourURL
+                    </code>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center text-white my-5 py-5" style="clear:both">
+    <h2>Body Parameters</h2>
+    <p><i>(Required) </i> 'BaseURL' - The URL you wish to have shortened and returned to you</p>
+
+    <h2 class="mt-5 pt-3">Example Response</h2>
+    <div class="mt-3" style="background-color:#1b1f22; border-radius:0.4em;">
+        <label class="my-3 mx-4 px-3">
+            <code class="text-white" style="font-size:medium;">
+                {
+                    "shortenedUrl": "@(Model.HostName)32189"
+                }           
+            </code>
+        </label>
+    </div>
+</div>
+
+

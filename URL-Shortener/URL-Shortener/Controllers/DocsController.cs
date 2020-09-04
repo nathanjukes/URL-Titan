@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using URL_Shortener.HelperClasses;
+using URL_Shortener.Models;
 
 namespace URL_Shortener.Controllers
 {
@@ -20,7 +22,7 @@ namespace URL_Shortener.Controllers
         [ActionName("shorten-url")]
         public IActionResult ShortenUrl()
         {
-            return View("About");
+            return View("ShortenUrl", new DocsModel() { HostName = URLData.GetHostname(Request) });
         }
 
         //GET: .../Get-full-url

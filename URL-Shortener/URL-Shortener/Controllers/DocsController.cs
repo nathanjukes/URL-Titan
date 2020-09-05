@@ -36,7 +36,7 @@ namespace URL_Shortener.Controllers
         [ActionName("shorten-collection")]
         public IActionResult ShortenCollection()
         {
-            return View();
+            return View("ShortenCollection", new DocsModel() { HostName = URLData.GetHostname(Request) });
         }
 
         //GET: .../Get-url-uses

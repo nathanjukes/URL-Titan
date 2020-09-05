@@ -1,0 +1,82 @@
+﻿@model URL_Shortener.Models.DocsModel
+@{
+    ViewData["Title"] = "URL Titan: API - Get Url Uses";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="container mt-3 text-center">
+        <h1 class="text-white pt-4">Get URL Uses Endpoint</h1>
+        <label class="text-white-50 pb-3">Lets you retrieve the amount of uses for a shortened URL</label>
+    </div>
+    <div class="col-lg-8">
+        <div class="container mt-3 text-center float-left col-md-10 offset-2 table-responsive">
+            <table class="table text-white mt-4 text-left">
+                <tbody>
+                    <tr>
+                        <th class="text-primary">Description</th>
+                        <td>Returns the amount of uses for a shortened URL</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Endpoint</th>
+                        <td>/Api/GetUrlUses</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Authorization</th>
+                        <td>No authorization required</td>
+                    </tr>
+                    <tr>
+                        <th class="text-primary">Request Limit</th>
+                        <td>∞</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class=" mt-4 pt-3 px-3 text-center">
+            <h2 class="text-white">Example Request</h2>
+            <div class="text-left" style="background-color:#1b1f22; border-radius:0.4em;">
+                <label class="my-3 mx-4 px-3">
+                    <code class="text-white" style="font-size:medium;">
+                        GET @(Model.HostName)Api/GetUrlUses
+                        <br /><br />
+                        Required Body Parameters: <br />"ShortUrl" : YourShortenedURL
+                    </code>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center text-white my-5 py-4" style="clear:both">
+    <h2>Required Body Parameters</h2>
+    <div class="mt-3" style="background-color:#1b1f22; border-radius:0.4em;">
+        <label class="pt-3">
+            '<b>ShortURL</b>' - The shortened URL you were given
+            <br /><label class="pt-2 text-muted">e.g. '@(Model.HostName)36fd0'</label>
+        </label>
+    </div>
+
+    <h2 class="mt-5 pt-3">Example Response</h2>
+    <div class="mt-3" style="background-color:#1b1f22; border-radius:0.4em;">
+        <label class="my-3 mx-4 px-3">
+            <code class="text-white" style="font-size:medium;">
+                {
+                    "useCount": 10,
+                    "baseUrl": "https://www.reddit.com/r/fsadd",
+                    "shortenedUrl": "url-titan/36fd0"
+                }
+            </code>
+        </label>
+    </div>
+</div>
+
+
+
+
+

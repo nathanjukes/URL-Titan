@@ -133,18 +133,18 @@ namespace URL_Shortener.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUrlUses(string ShortenedUrl)
+        public IActionResult GetUrlUses(string ShortURL)
         {
-            if (string.IsNullOrEmpty(ShortenedUrl)) return StatusCode(400);
+            if (string.IsNullOrEmpty(ShortURL)) return StatusCode(400);
 
-            string[] splitUrl = ShortenedUrl.Split('/');
+            string[] splitUrl = ShortURL.Split('/');
             string shortenedID = splitUrl[splitUrl.Length - 1];
 
             try
             {
                 URL url = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
 
-                var returnObject = new { useCount = _urlService.GetUrlTotalUses(_urlContext, url), baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID), shortenedUrl = ShortenedUrl };
+                var returnObject = new { useCount = _urlService.GetUrlTotalUses(_urlContext, url), baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID), shortenedUrl = ShortURL };
                 string returnData = JsonConvert.SerializeObject(returnObject);
 
                 return Ok(returnObject);
@@ -156,11 +156,11 @@ namespace URL_Shortener.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUrlStats(string ShortenedUrl)
+        public IActionResult GetUrlStats(string ShortURL)
         {
-            if (string.IsNullOrEmpty(ShortenedUrl)) return StatusCode(400);
+            if (string.IsNullOrEmpty(ShortURL)) return StatusCode(400);
 
-            string[] splitUrl = ShortenedUrl.Split('/');
+            string[] splitUrl = ShortURL.Split('/');
             string shortenedID = splitUrl[splitUrl.Length - 1];
 
             try
@@ -171,7 +171,7 @@ namespace URL_Shortener.Controllers
                 var returnObject = new
                 {
                     baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID),
-                    shortenedUrl = ShortenedUrl,
+                    shortenedUrl = ShortURL,
                     useCount = _urlService.GetUrlTotalUses(_urlContext, url),
                     countries = _urlService.GetUrlCountries(_urlContext, url),
                     lastTimeAccessed = _urlService.GetLastAccessTime(_urlContext, url),

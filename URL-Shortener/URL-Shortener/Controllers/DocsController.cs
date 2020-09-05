@@ -43,7 +43,7 @@ namespace URL_Shortener.Controllers
         [ActionName("get-url-uses")]
         public IActionResult GetUrlUses()
         {
-            return View();
+            return View("GetUrlUses", new DocsModel() { HostName = URLData.GetHostname(Request) });
         }
 
         //GET: .../Get-url-stats

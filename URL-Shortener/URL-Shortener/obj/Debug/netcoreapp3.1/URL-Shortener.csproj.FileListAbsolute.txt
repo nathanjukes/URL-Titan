@@ -432,3 +432,4 @@ E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netco
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\bin\Debug\netcoreapp3.1\web.config
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Api.cshtml.g.cs
 E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Docs\ShortenURL.cshtml.g.cs
+E:\coding\GitHub\Repos\URL-Shortener\URL-Shortener\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\Docs\GetFullUrl.cshtml.g.cs

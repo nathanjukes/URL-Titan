@@ -1,13 +1,13 @@
 ﻿@model URL_Shortener.Models.DocsModel
 @{
-    ViewData["Title"] = "URL Titan: API - ShortenURL";
+    ViewData["Title"] = "URL Titan: API - Get Full URL";
     Layout = "_Layout";
 }
 
 <div class="row">
     <div class="container mt-3 text-center">
-        <h1 class="text-white pt-4">Shorten URL Endpoint</h1>
-        <label class="text-white-50 pb-3">Lets you POST a URL and get a shortened URL returned</label>
+        <h1 class="text-white pt-4">Get Full URL Endpoint</h1>
+        <label class="text-white-50 pb-3">Lets you retrieve the full URL of a shortened URL in json form</label>
     </div>
     <div class="col-lg-8">
         <div class="container mt-3 text-center float-left col-md-10 offset-2 table-responsive">
@@ -15,15 +15,15 @@
                 <tbody>
                     <tr>
                         <th class="text-primary">Description</th>
-                        <td>Shortens a given URL</td>
+                        <td>Returns the base URL</td>
                     </tr>
                     <tr>
                         <th class="text-primary">Endpoint</th>
-                        <td>/Api/ShortenUrl</td>
+                        <td>/Api/GetFullUrl</td>
                     </tr>
                     <tr>
                         <th class="text-primary">HTTP Method</th>
-                        <td>POST</td>
+                        <td>GET</td>
                     </tr>
                     <tr>
                         <th class="text-primary">Authorization</th>
@@ -43,9 +43,9 @@
             <div class="text-left" style="background-color:#1b1f22; border-radius:0.4em;">
                 <label class="my-3 mx-4 px-3">
                     <code class="text-white" style="font-size:medium;">
-                        POST @(Model.HostName)Api/ShortenUrl
+                        GET @(Model.HostName)Api/GetFullUrl
                         <br /><br />
-                        Required Body Parameters: <br />"BaseURL" : YourURL
+                        Required Body Parameters: <br />"ShortURL" : YourShortenedURL
                     </code>
                 </label>
             </div>
@@ -57,8 +57,8 @@
     <h2>Required Body Parameters</h2>
     <div class="mt-3" style="background-color:#1b1f22; border-radius:0.4em;">
         <label class="pt-3">
-            '<b>BaseURL</b>' - The URL you wish to have shortened and returned to you
-            <br /><label class="pt-2 text-muted">e.g. 'https://twitter.com/'</label>
+            '<b>ShortURL</b>' - The shortened URL you were given
+            <br /><label class="pt-2 text-muted">e.g. '@(Model.HostName)36fd0'</label>
         </label>
     </div>
 
@@ -67,11 +67,13 @@
         <label class="my-3 mx-4 px-3">
             <code class="text-white" style="font-size:medium;">
                 {
-                "shortenedUrl": "@(Model.HostName)32189"
+                "baseUrl": "https://www.reddit.com/r/fsadd",
+                "shortenedUrl": "@(Model.HostName)36fd0"
                 }
             </code>
         </label>
     </div>
 </div>
+
 
 

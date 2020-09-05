@@ -29,7 +29,7 @@ namespace URL_Shortener.Controllers
         [ActionName("get-full-url")]
         public IActionResult GetFullUrl()
         {
-            return View();
+            return View("GetFullURL", new DocsModel() { HostName = URLData.GetHostname(Request) });
         }
 
         //GET: .../Shorten-collection

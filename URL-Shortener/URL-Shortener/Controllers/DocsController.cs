@@ -50,9 +50,7 @@ namespace URL_Shortener.Controllers
         [ActionName("get-url-stats")]
         public IActionResult GetUrlStats()
         {
-            return View();
+            return View("GetUrlStats", new DocsModel() { HostName = URLData.GetHostname(Request) });
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿@model URL_Shortener.Models.DocsModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model URL_Shortener.Models.DocsModel
 @{
     ViewData["Title"] = "URL Titan: API - ShortenURL";
     Layout = "_Layout";
@@ -7,7 +8,8 @@
 <div class="row">
     <div class="container mt-3 text-center">
         <h1 class="text-white pt-4">Shorten URL Endpoint</h1>
-        <label class="text-white-50 pb-3">Lets you POST a URL and get a shortened URL returned</label>
+        <label class="text-white-50">Lets you POST a URL and get a shortened URL returned</label>
+        <p class="pb-3"><a asp-controller="docs" asp-action="index">Back to Docs</a></p>
     </div>
     <div class="col-lg-8">
         <div class="container mt-3 text-center float-left col-md-10 offset-2 table-responsive">

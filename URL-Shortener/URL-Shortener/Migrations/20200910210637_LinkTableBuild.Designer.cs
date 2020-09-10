@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using URL_Shortener.DatabaseContexts;
 
 namespace URL_Shortener.Migrations
 {
     [DbContext(typeof(URLContext))]
-    partial class URLContextModelSnapshot : ModelSnapshot
+    [Migration("20200910210637_LinkTableBuild")]
+    partial class LinkTableBuild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

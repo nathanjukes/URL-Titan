@@ -11,8 +11,15 @@ namespace URL_Shortener.DatabaseContexts
     {
         public URLContext(DbContextOptions<URLContext> options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UrlUsers>().HasKey(x => new { x.UrlId, x.UserId }); //Defining the composite primary key for the link table
+        }
+
         public DbSet<URL> UrlSet { get; set; }
 
         public DbSet<User> UserSet { get; set; }
+
+        public DbSet<UrlUsers> UrlUsersSet { get; set; }
     }
 }

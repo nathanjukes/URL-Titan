@@ -13,6 +13,8 @@ namespace URL_Shortener.Models
         [Key]
         public int Id { get; set; }
 
+        public bool HasAdminPrivileges { get; set; }
+
         public string IpAddress { get; set; }
 
         public string CountryCode { get; set; }
@@ -23,9 +25,6 @@ namespace URL_Shortener.Models
 
         public int UseCount { get; set; }
 
-        [ForeignKey("UrlFK")]
-        public int UrlFK { get; set; }
-
-        public URL UrlEntity { get; set; }
+        public ICollection<UrlUsers> urlUsers { get; set; }
     }
 }

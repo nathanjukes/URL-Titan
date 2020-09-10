@@ -18,6 +18,6 @@ namespace URL_Shortener.Models
 
         public string ExternalIP { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UrlUsers> UrlUsers { get; set; }
     }
 }

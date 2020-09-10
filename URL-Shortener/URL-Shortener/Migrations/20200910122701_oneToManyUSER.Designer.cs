@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using URL_Shortener.DatabaseContexts;
 
 namespace URL_Shortener.Migrations
 {
     [DbContext(typeof(URLContext))]
-    partial class URLContextModelSnapshot : ModelSnapshot
+    [Migration("20200910122701_oneToManyUSER")]
+    partial class oneToManyUSER
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,24 +35,14 @@ namespace URL_Shortener.Migrations
                     b.Property<string>("ShortenedIdentifier")
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.ToTable("UrlSet");
-                });
-
-            modelBuilder.Entity("URL_Shortener.Models.UrlUsers", b =>
-                {
-                    b.Property<int>("UrlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UrlId", "UserId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UrlUsersSet");
+                    b.ToTable("UrlSet");
                 });
 
             modelBuilder.Entity("URL_Shortener.Models.User", b =>
@@ -64,9 +56,6 @@ namespace URL_Shortener.Migrations
 
                     b.Property<DateTime>("DateInitialised")
                         .HasColumnType("datetime");
-
-                    b.Property<bool>("HasAdminPrivileges")
-                        .HasColumnType("bit");
 
                     b.Property<string>("IpAddress")
                         .HasColumnType("text");
@@ -82,19 +71,11 @@ namespace URL_Shortener.Migrations
                     b.ToTable("UserSet");
                 });
 
-            modelBuilder.Entity("URL_Shortener.Models.UrlUsers", b =>
+            modelBuilder.Entity("URL_Shortener.Models.URL", b =>
                 {
-                    b.HasOne("URL_Shortener.Models.URL", "Url")
-                        .WithMany("UrlUsers")
-                        .HasForeignKey("UrlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("URL_Shortener.Models.User", "User")
-                        .WithMany("urlUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("URL_Shortener.Models.User", null)
+                        .WithMany("Urls")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

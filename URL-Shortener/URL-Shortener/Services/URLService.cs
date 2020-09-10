@@ -119,13 +119,13 @@ namespace URL_Shortener.Services
             //Get user object for this url and this IP address - if it doesn't exist, create it
             try
             {
-                retrievedUser = urlContext.UserSet.Single(x => x.IpAddress == userIpAddress);
+                retrievedUser = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).Where(x => x.IpAddress == request.HttpContext.Connection.RemoteIpAddress.ToString()).Single();
             }
             catch(InvalidOperationException)
             {
-                User newUser = CreateUser(userIpAddress, url);
+                User newUser = CreateUser(urlContext, userIpAddress, url);
 
-                await urlContext.UserSet.AddAsync(newUser);
+                //await urlContext.UserSet.AddAsync(newUser);
                 await urlContext.SaveChangesAsync();
 
                 return;
@@ -140,7 +140,8 @@ namespace URL_Shortener.Services
 
         public int GetUrlTotalUses(URLContext urlContext, URL url)
         {
-            IEnumerable<User> urlUsers = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+           // IEnumerable<User> urlUsers = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+            IEnumerable<User> urlUsers = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User);
 
             int count = 0;
 
@@ -152,7 +153,7 @@ namespace URL_Shortener.Services
             return count;
         }
 
-        private User CreateUser(string ipAddress, URL parentUrl)
+        private User CreateUser(URLContext urlContext, string ipAddress, URL parentUrl)
         {
             User returnUser = new User()
             {
@@ -160,11 +161,14 @@ namespace URL_Shortener.Services
                 DateInitialised = DateTime.Now,
                 LastUsedTime = DateTime.Now,
                 UseCount = 1,
-                UrlEntity = parentUrl,
-                UrlFK = parentUrl.Id,
+                //UrlEntity = parentUrl,
+                //UrlFK = parentUrl.Id,
                 CountryCode = GetCountryCode(ipAddress)
             };
-
+            urlContext.UserSet.Add(returnUser);
+            urlContext.SaveChanges();
+            urlContext.UrlUsersSet.Add(new UrlUsers() { UrlId = parentUrl.Id, User = returnUser });
+            urlContext.SaveChanges();
             return returnUser;
         }
 
@@ -199,9 +203,10 @@ namespace URL_Shortener.Services
         {
             var countryData = new Dictionary<string, int>();
 
-            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
+            IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User);
 
-            foreach(var i in users)
+            foreach (var i in users)
             {
                 if(!countryData.ContainsKey(i.CountryCode))
                 {
@@ -218,8 +223,9 @@ namespace URL_Shortener.Services
 
         public DateTime? GetLastAccessTime(URLContext urlContext, URL url)
         {
-            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
-
+            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
+            IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).OrderByDescending(x => x.LastUsedTime);
+            
             if (users != null && users.Count() != 0)
             {
                 return users.First().LastUsedTime;
@@ -230,7 +236,8 @@ namespace URL_Shortener.Services
         
         public string GetLastCountryAccessed(URLContext urlContext, URL url)
         {
-            IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
+            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
+            IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).OrderByDescending(x => x.LastUsedTime);
 
             if (users != null && users.Count() != 0)
             {

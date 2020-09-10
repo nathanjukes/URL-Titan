@@ -21,7 +21,10 @@ namespace URL_Shortener.Services
     {
         public IEnumerable<URL> GetUserUrls(URLContext urlContext, Microsoft.AspNetCore.Http.HttpContext contextHttp)
         {
-            var userURLs = urlContext.UrlSet.Where(x => x.ExternalIP == contextHttp.Connection.RemoteIpAddress.ToString()); //Ensures the same user is accessing the page by validating their IP
+            var userURLs = urlContext.UrlUsersSet
+                .Where(x => x.User.IpAddress == contextHttp.Connection.RemoteIpAddress.ToString())
+                .Where(x => x.User.HasAdminPrivileges == true)
+                .Select(x => x.Url); //Ensures the same user is accessing the page by validating their IP and admin privileges
 
             return userURLs;
         }
@@ -37,9 +40,9 @@ namespace URL_Shortener.Services
                 await urlContext.UrlSet.AddAsync(urlToAdd);
                 await urlContext.SaveChangesAsync();
 
-                if (request != null)
+                if(request != null)
                 {
-                    CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd);
+                    CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd, true);
                 }
             }
             else
@@ -50,9 +53,17 @@ namespace URL_Shortener.Services
 
         public async Task RemoveURL(URLContext urlContext, string shortenedID)
         {
-            var removeURL = urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
+            URL removeURL = urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
+
+            int removeUserId = urlContext.UrlUsersSet
+                .Where(x => x.UrlId == removeURL.Id)
+                .Where(x => x.User.HasAdminPrivileges == true)
+                .Single().UserId;
+
+            User removeUser = urlContext.UserSet.Single(x => x.Id == removeUserId);
 
             urlContext.Remove(removeURL);
+            urlContext.Remove(removeUser);
             await urlContext.SaveChangesAsync();
         }
 
@@ -128,7 +139,7 @@ namespace URL_Shortener.Services
             }
             catch(InvalidOperationException)
             {
-                User newUser = CreateUser(urlContext, userIpAddress, url);
+                User newUser = CreateUser(urlContext, userIpAddress, url, false);
 
                 //await urlContext.UserSet.AddAsync(newUser);
                 await urlContext.SaveChangesAsync();
@@ -158,7 +169,7 @@ namespace URL_Shortener.Services
             return count;
         }
 
-        private User CreateUser(URLContext urlContext, string ipAddress, URL parentUrl)
+        private User CreateUser(URLContext urlContext, string ipAddress, URL parentUrl, bool isAdmin)
         {
             User returnUser = new User()
             {
@@ -168,6 +179,7 @@ namespace URL_Shortener.Services
                 UseCount = 1,
                 //UrlEntity = parentUrl,
                 //UrlFK = parentUrl.Id,
+                HasAdminPrivileges = isAdmin,
                 CountryCode = GetCountryCode(ipAddress)
             };
 

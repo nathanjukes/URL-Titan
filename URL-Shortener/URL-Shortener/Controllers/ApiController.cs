@@ -51,7 +51,7 @@ namespace URL_Shortener.Controllers
 
             try //Attempts to add URL to DB
             {
-                await _urlService.AddURL(_urlContext, urlToAdd);
+                await _urlService.AddURL(_urlContext, urlToAdd, null);
             }
             catch(Exception postShortURLError)
             {
@@ -119,7 +119,7 @@ namespace URL_Shortener.Controllers
                 if(Uri.IsWellFormedUriString(baseUrl, UriKind.Absolute))
                 {
                     var urlToAdd = new URL { BaseURL = baseUrl };
-                    await _urlService.AddURL(_urlContext, urlToAdd);
+                    await _urlService.AddURL(_urlContext, urlToAdd, null);
 
                     returnList.Add(URLData.GetHostname(Request) + urlToAdd.ShortenedIdentifier);
                 }

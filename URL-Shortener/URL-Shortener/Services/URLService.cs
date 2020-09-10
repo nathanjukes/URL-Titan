@@ -26,7 +26,7 @@ namespace URL_Shortener.Services
             return userURLs;
         }
 
-        public async Task AddURL(URLContext urlContext, URL urlToAdd)
+        public async Task AddURL(URLContext urlContext, URL urlToAdd, HttpRequest request)
         {
             if (urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).Count() == 0)
             {
@@ -36,6 +36,11 @@ namespace URL_Shortener.Services
 
                 await urlContext.UrlSet.AddAsync(urlToAdd);
                 await urlContext.SaveChangesAsync();
+
+                if (request != null)
+                {
+                    CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd);
+                }
             }
             else
             {
@@ -165,6 +170,7 @@ namespace URL_Shortener.Services
                 //UrlFK = parentUrl.Id,
                 CountryCode = GetCountryCode(ipAddress)
             };
+
             urlContext.UserSet.Add(returnUser);
             urlContext.SaveChanges();
             urlContext.UrlUsersSet.Add(new UrlUsers() { UrlId = parentUrl.Id, User = returnUser });

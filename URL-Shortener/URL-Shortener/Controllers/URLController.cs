@@ -124,7 +124,7 @@ namespace URL_Shortener.Controllers
 
             url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
 
-            await _urlService.AddURL(_urlContext, url);
+            await _urlService.AddURL(_urlContext, url, Request);
             
             var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request)};
 

@@ -55,15 +55,24 @@ namespace URL_Shortener.Services
         {
             URL removeURL = urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
 
-            int removeUserId = urlContext.UrlUsersSet
-                .Where(x => x.UrlId == removeURL.Id)
-                .Where(x => x.User.HasAdminPrivileges == true)
-                .Single().UserId;
+            List<int> removeUserIds = urlContext.UrlUsersSet.Where(x => x.UrlId == removeURL.Id).Select(x => x.UserId).ToList();
 
-            User removeUser = urlContext.UserSet.Single(x => x.Id == removeUserId);
+            urlContext.UrlSet.Remove(removeURL);
+            await urlContext.SaveChangesAsync();
 
-            urlContext.Remove(removeURL);
-            urlContext.Remove(removeUser);
+            await RemoveUrlUsers(urlContext, removeUserIds); //Remove every user associated with the URL
+        }
+
+        private async Task RemoveUrlUsers(URLContext urlContext, List<int> removeUserIds)
+        {
+            List<User> removeUsers = new List<User>();
+
+            foreach (var i in removeUserIds)
+            {
+                User currentUser = urlContext.UserSet.Single(x => x.Id == i);
+                urlContext.UserSet.Remove(currentUser);
+            }
+
             await urlContext.SaveChangesAsync();
         }
 
@@ -183,10 +192,11 @@ namespace URL_Shortener.Services
                 CountryCode = GetCountryCode(ipAddress)
             };
 
-            urlContext.UserSet.Add(returnUser);
-            urlContext.SaveChanges();
-            urlContext.UrlUsersSet.Add(new UrlUsers() { UrlId = parentUrl.Id, User = returnUser });
-            urlContext.SaveChanges();
+            urlContext.UserSet.AddAsync(returnUser);
+            urlContext.SaveChangesAsync();
+
+            urlContext.UrlUsersSet.AddAsync(new UrlUsers() { UrlId = parentUrl.Id, User = returnUser });
+            urlContext.SaveChangesAsync();
             return returnUser;
         }
 

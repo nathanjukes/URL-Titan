@@ -165,7 +165,6 @@ namespace URL_Shortener.Services
 
         public int GetUrlTotalUses(URLContext urlContext, URL url)
         {
-           // IEnumerable<User> urlUsers = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
             IEnumerable<User> urlUsers = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User);
 
             int count = 0;
@@ -186,8 +185,6 @@ namespace URL_Shortener.Services
                 DateInitialised = DateTime.Now,
                 LastUsedTime = DateTime.Now,
                 UseCount = 1,
-                //UrlEntity = parentUrl,
-                //UrlFK = parentUrl.Id,
                 HasAdminPrivileges = isAdmin,
                 CountryCode = GetCountryCode(ipAddress)
             };
@@ -231,7 +228,6 @@ namespace URL_Shortener.Services
         {
             var countryData = new Dictionary<string, int>();
 
-            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id);
             IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User);
 
             foreach (var i in users)
@@ -251,7 +247,6 @@ namespace URL_Shortener.Services
 
         public DateTime? GetLastAccessTime(URLContext urlContext, URL url)
         {
-            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
             IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).OrderByDescending(x => x.LastUsedTime);
             
             if (users != null && users.Count() != 0)
@@ -264,7 +259,6 @@ namespace URL_Shortener.Services
         
         public string GetLastCountryAccessed(URLContext urlContext, URL url)
         {
-            //IEnumerable<User> users = urlContext.UserSet.Where(x => x.UrlFK == url.Id).OrderByDescending(x => x.LastUsedTime);
             IEnumerable<User> users = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).OrderByDescending(x => x.LastUsedTime);
 
             if (users != null && users.Count() != 0)

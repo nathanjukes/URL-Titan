@@ -105,7 +105,7 @@ namespace URL_Shortener.Controllers
         //POST: .../UploadURL
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadURL(URL url) //Add error checking / validation for the url.baseurl being a fqdn
+        public async Task<IActionResult> UploadURL(URL url)
         {
             if (!ModelState.IsValid)
             {

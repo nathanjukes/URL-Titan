@@ -186,6 +186,10 @@ namespace URL_Shortener.Controllers
             {
                 return StatusCode(400);
             }
+            catch(InvalidOperationException)
+            {
+                return StatusCode(404);
+            }
         }
     }
 }

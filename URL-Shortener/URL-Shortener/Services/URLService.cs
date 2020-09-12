@@ -31,23 +31,23 @@ namespace URL_Shortener.Services
 
         public async Task AddURL(URLContext urlContext, URL urlToAdd, HttpRequest request)
         {
-            if (urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).Count() == 0)
+            IEnumerable<URL> urls = urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL);
+
+            await AppendUrlToDB(urlContext, urlToAdd, request);
+        }
+
+        private async Task AppendUrlToDB(URLContext urlContext, URL urlToAdd, HttpRequest request) //Called from AddUrl method
+        {
+            urlToAdd.ShortenedIdentifier = GenerateUrlID(urlContext, urlToAdd);
+
+            Console.WriteLine($"Adding ID: {urlToAdd.ShortenedIdentifier} for website: {urlToAdd.BaseURL} for User (IP): {urlToAdd.ExternalIP} at {DateTime.Now}");
+
+            await urlContext.UrlSet.AddAsync(urlToAdd);
+            await urlContext.SaveChangesAsync();
+
+            if (request != null)
             {
-                urlToAdd.ShortenedIdentifier = GenerateUrlID(urlContext, urlToAdd);
-
-                Console.WriteLine($"Adding ID: {urlToAdd.ShortenedIdentifier} for website: {urlToAdd.BaseURL} for User (IP): {urlToAdd.ExternalIP} at {DateTime.Now}");
-
-                await urlContext.UrlSet.AddAsync(urlToAdd);
-                await urlContext.SaveChangesAsync();
-
-                if(request != null)
-                {
-                    CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd, true);
-                }
-            }
-            else
-            {
-                urlToAdd.ShortenedIdentifier = urlContext.UrlSet.Where(x => x.BaseURL == urlToAdd.BaseURL).First().ShortenedIdentifier; //In case of a duplicate upload of a url
+                CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd, true);
             }
         }
 

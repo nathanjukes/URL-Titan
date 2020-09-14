@@ -1,7 +1,9 @@
-
+<p align="center">
+<img width="90" height="90" src="https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/LogoCropped.png">
 <h1 align="center">
-  <img width="50" height="50" src="https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/LogoCropped.png"> URL-Titan: URL Shortener
+   URL-Titan: URL Shortener
 </h1>
+</p>
 
 <h4 align="center">A free and open source solution to creating better, more informative URLs!</h4>
 

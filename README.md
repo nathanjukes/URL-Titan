@@ -22,32 +22,32 @@
   </a>
 </p>
 
+## About URL-Titan
+URL-Titan is a free, open source URL shortener that provides flexibility with URLs, allowing for new techniques such as tracking the URL: seeing where it's being used and how often etc.  
+
+URL-Titan is fully built using C# within ASP.NET Core with the help of HTML, CSS and EF Core 
+
 ## Source Code
 Head to this directory to find the source code for URL-Titan: 
 ```bash
-"C:XX" 
+"C:\URL-Titan\URL-Shortener" 
 ```
 
 Or download here:
 [(64-bit)](DOWNLOAD.ZIP) and XX
 
-![Homescreen Image](SHOW IMAGE)
+![Homescreen Image](https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/Homepage.JPG)
 
-![Demo Gif](SHOW DEMO GIF)
+![Aoi](https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/ApiHomepage.JPG)
 
 ## Using the App
-The app is hosted at: (URL)
+The app is hosted at: (URL), simply head  there and begin using the web app!
 
 Please note: This app is running entirely off my Raspberry Pi (As of Summer 2020) - Please be aware that downtime may occur in off-peak times.
 
 ## Change Log
 
 - 1.00 - Released XX/XX/XX
-
-
-## Usage
-
-Simply head to: (URL) and begin using the web app!
 
 ### License
 [MIT](https://github.com/nathanjukes/URL-Shortener/blob/master/LICENSE)

@@ -22,7 +22,7 @@ namespace URL_Shortener.Services
         public IEnumerable<URL> GetUserUrls(URLContext urlContext, Microsoft.AspNetCore.Http.HttpContext contextHttp)
         {
             var userURLs = urlContext.UrlUsersSet
-                .Where(x => x.User.IpAddress == contextHttp.Connection.RemoteIpAddress.ToString())
+                .Where(x => x.User.IpAddress == contextHttp.Connection.RemoteIpAddress.MapToIPv4().ToString())
                 .Where(x => x.User.HasAdminPrivileges == true)
                 .Select(x => x.Url); //Ensures the same user is accessing the page by validating their IP and admin privileges
 
@@ -47,7 +47,7 @@ namespace URL_Shortener.Services
 
             if (request != null)
             {
-                CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.ToString(), urlToAdd, true);
+                CreateUser(urlContext, request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString(), urlToAdd, true);
             }
         }
 
@@ -138,19 +138,18 @@ namespace URL_Shortener.Services
 
         public async Task UpdateUrlUsers(URLContext urlContext, HttpRequest request, URL url)
         {
-            string userIpAddress = request.HttpContext.Connection.RemoteIpAddress.ToString();
+            string userIpAddress = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
             User retrievedUser;
 
             //Get user object for this url and this IP address - if it doesn't exist, create it
             try
             {
-                retrievedUser = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).Where(x => x.IpAddress == request.HttpContext.Connection.RemoteIpAddress.ToString()).Single();
+                retrievedUser = urlContext.UrlUsersSet.Where(x => x.UrlId == url.Id).Select(x => x.User).Where(x => x.IpAddress == request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString()).Single();
             }
             catch(InvalidOperationException)
             {
                 User newUser = CreateUser(urlContext, userIpAddress, url, false);
 
-                //await urlContext.UserSet.AddAsync(newUser);
                 await urlContext.SaveChangesAsync();
 
                 return;
@@ -194,6 +193,7 @@ namespace URL_Shortener.Services
 
             urlContext.UrlUsersSet.AddAsync(new UrlUsers() { UrlId = parentUrl.Id, User = returnUser });
             urlContext.SaveChangesAsync();
+
             return returnUser;
         }
 
@@ -215,12 +215,12 @@ namespace URL_Shortener.Services
                 }
                 else
                 {
-                    return "GB"; //CHANGE THIS IN OFFICIAL BUILD
+                    return "GB";
                 }
             }
             catch(RuntimeBinderException) //Property doesn't exist exception
             {
-                return "GB"; //CHANGE THIS IN OFFICIAL BUILD
+                return "GB";
             }
         }
 

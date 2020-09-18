@@ -39,7 +39,7 @@ namespace URL_Shortener.Controllers
 
         //POST: .../ShortenURL
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> ShortenURL(string BaseURL)
         {
             if(!Uri.IsWellFormedUriString(BaseURL, UriKind.Absolute))
@@ -107,7 +107,7 @@ namespace URL_Shortener.Controllers
 
         //POST: .../ShortenCollection
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> ShortenCollection([FromBody] IEnumerable<string> UrlList)
         {
             if (UrlList == null || UrlList.Count() == 0) return StatusCode(400);

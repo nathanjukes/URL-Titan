@@ -25,7 +25,7 @@
 ## About URL-Titan
 URL-Titan is a free, open source URL shortener that provides flexibility with URLs, allowing for new techniques such as tracking the URL: seeing where it's being used and how often etc.  
 
-URL-Titan is a full stack web app that was fully built using C# within ASP.NET Core with the help of HTML, CSS and EF Core 
+URL-Titan is a full stack web app that was fully built using C# within ASP.NET Core with the help of HTML, CSS, EF Core and finally Docker for the deployment.
 
 ## Using the App
 <h4>This app is currently being tested and deployed, feel free to view the source code though!</h4>

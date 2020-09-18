@@ -10,6 +10,7 @@ using URL_Shortener.DatabaseContexts;
 using URL_Shortener.Models;
 using URL_Shortener.Services;
 using URL_Shortener.HelperClasses;
+using System.Net;
 
 namespace URL_Shortener.Controllers
 {
@@ -83,10 +84,10 @@ namespace URL_Shortener.Controllers
 
         //POST: .../DeleteURL
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteURL(string shortenedID, string pageType)
         {
-            Console.WriteLine($"Request to delete URL with shortened ID of {shortenedID} at {DateTime.Now} from {HttpContext.Connection.RemoteIpAddress}");
+            Console.WriteLine($"Request to delete URL with shortened ID of {shortenedID} at {DateTime.Now} from {HttpContext.Connection.RemoteIpAddress.MapToIPv4()}");
 
             //Remove URL from Database
             await _urlService.RemoveURL(_urlContext, shortenedID);
@@ -104,7 +105,7 @@ namespace URL_Shortener.Controllers
 
         //POST: .../UploadURL
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadURL(URL url)
         {
             if (!ModelState.IsValid)
@@ -122,7 +123,7 @@ namespace URL_Shortener.Controllers
                 return View("EnterURL", enterURLModel);
             }
 
-            url.ExternalIP = HttpContext.Connection.RemoteIpAddress.ToString();
+            url.ExternalIP = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
 
             await _urlService.AddURL(_urlContext, url, Request);
             
@@ -151,7 +152,7 @@ namespace URL_Shortener.Controllers
 
         //POST: .../SubmitContactForm
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult SubmitContactForm(ContactMeModel contactData)
         {
             ViewData["Valid"] = "";

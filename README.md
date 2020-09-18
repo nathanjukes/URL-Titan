@@ -28,9 +28,8 @@ URL-Titan is a free, open source URL shortener that provides flexibility with UR
 URL-Titan is a full stack web app that was fully built using C# within ASP.NET Core with the help of HTML, CSS, EF Core and finally Docker for the deployment.
 
 ## Using the App
-<h4>This app is currently being tested and deployed, feel free to view the source code though!</h4>
 
-The app is hosted at: (URL), simply head  there and begin using the web app!
+The app is hosted at: [Here!](http://url-titan.nathanjukes.tech), simply head  there and begin using the web app!
 
 Please note: This app is running entirely off my Raspberry Pi (As of Summer 2020) - Please be aware that downtime may occur in off-peak times.
 
@@ -40,16 +39,13 @@ Head to this directory to find the source code for URL-Titan:
 "C:\URL-Titan\URL-Shortener" 
 ```
 
-Or download here:
-[(64-bit)](DOWNLOAD.ZIP) and XX
-
 ![Homescreen Image](https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/Homepage.JPG)
 
-![Aoi](https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/ApiHomepage.JPG)
+![Api](https://github.com/nathanjukes/URL-Shortener/blob/master/Assets/ApiHomepage.JPG)
 
 ## Change Log
 
-- 1.00 - Released XX/XX/XX
+- 1.00 - Released 18/09/20
 
 ### License
 [MIT](https://github.com/nathanjukes/URL-Shortener/blob/master/LICENSE)

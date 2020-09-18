@@ -60,7 +60,7 @@
     <h2>Required Body Parameters</h2>
     <div class="mt-3" style="background-color:#1b1f22; border-radius:0.4em;">
         <label class="pt-3">
-            '<b>ShortURL</b>' - The shortened URL you were given
+            '<b>ShortUrl</b>' - The shortened URL you were given
             <br /><label class="pt-2 text-muted">e.g. '@(Model.HostName)36fd0'</label>
         </label>
     </div>
@@ -71,7 +71,7 @@
             <code class="text-white" style="font-size:medium;">
                 {
                 "baseUrl": "https://www.reddit.com/r/fsadd",<br />
-                "shortenedUrl": "36fd0", <br />
+                "shortenedUrl": "@(Model.HostName)36fd0", <br />
                 "useCount": 11, <br />
                 "countries": {
                 <br />"GB": 8,

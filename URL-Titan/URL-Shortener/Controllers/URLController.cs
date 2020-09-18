@@ -128,6 +128,7 @@ namespace URL_Shortener.Controllers
             await _urlService.AddURL(_urlContext, url, Request);
             
             var enterUrlModel = new EnterURLModel() { UrlData = url, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = URLData.GetHostname(Request)};
+            enterUrlModel.HostName = URLData.GetHostname(Request);
 
             return View("DisplayURL", enterUrlModel);
         }
@@ -138,6 +139,7 @@ namespace URL_Shortener.Controllers
         public IActionResult UrlList()
         {
             var enterURLModel = new EnterURLModel() { UrlData = null, UserUrls = _urlService.GetUserUrls(_urlContext, HttpContext), HostName = null };
+            enterURLModel.HostName = URLData.GetHostname(Request);
 
             return View("DisplayURL", enterURLModel);
         }

@@ -89,7 +89,7 @@ namespace URL_Shortener.Controllers
 
                 if(baseUrl != null && baseUrl != "404")
                 {
-                    var returnObject = new { baseUrl = baseUrl, shortenedUrl = ShortURL };
+                    var returnObject = new { baseUrl = baseUrl, shortenedUrl = URLData.GetHostname(Request) + ShortURL };
                     string returnData = JsonConvert.SerializeObject(returnObject);
 
                     return Ok(returnData);

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\URL-Shortener.csproj": {}
+    "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Titan\\URL-Shortener\\URL-Shortener.csproj": {}
   },
   "projects": {
-    "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\URL-Shortener.csproj": {
+    "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Titan\\URL-Shortener\\URL-Shortener.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\URL-Shortener.csproj",
+        "projectUniqueName": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Titan\\URL-Shortener\\URL-Shortener.csproj",
         "projectName": "URL-Shortener",
-        "projectPath": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\URL-Shortener.csproj",
+        "projectPath": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Titan\\URL-Shortener\\URL-Shortener.csproj",
         "packagesPath": "C:\\Users\\Nathan Jukes\\.nuget\\packages\\",
-        "outputPath": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Shortener\\URL-Shortener\\obj\\",
+        "outputPath": "E:\\coding\\GitHub\\Repos\\URL-Shortener\\URL-Titan\\URL-Shortener\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

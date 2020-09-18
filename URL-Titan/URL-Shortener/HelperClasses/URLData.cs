@@ -12,7 +12,7 @@ namespace URL_Shortener.HelperClasses
         {
             UriBuilder uri = new UriBuilder(request.GetDisplayUrl());
 
-            return $"https://{uri.Host}/";
+            return $"http://{uri.Host}/";
         }
     }
 }

@@ -168,5 +168,20 @@ namespace URL_Shortener.Controllers
 
             return View("ContactPage", contactData);
         }
+
+        
+        public IActionResult LinkTracking(string ShortUrl)
+        {
+            if(string.IsNullOrWhiteSpace(ShortUrl))
+            {
+                return View();
+            }
+
+
+
+            return View();
+
+            return NotFound();
+        }
     }
 }

@@ -47,6 +47,8 @@ namespace URL_Shortener.Services
             }
             catch (Exception e)
             { }
+
+            Console.WriteLine("ffdfgs");
         }
     }
 }

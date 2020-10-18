@@ -89,7 +89,7 @@ namespace URL_Shortener.Controllers
 
                 if(baseUrl != null && baseUrl != "404")
                 {
-                    var returnObject = new { baseUrl = baseUrl, shortenedUrl = URLData.GetHostname(Request) + ShortURL };
+                    var returnObject = new { baseUrl = baseUrl, shortenedUrl = ShortURL };
                     string returnData = JsonConvert.SerializeObject(returnObject);
 
                     return Ok(returnData);
@@ -113,7 +113,7 @@ namespace URL_Shortener.Controllers
             if (UrlList == null || UrlList.Count() == 0) return StatusCode(400);
 
             List<string> returnList = new List<string>();
-
+            
             foreach(var baseUrl in UrlList)
             {
                 if(Uri.IsWellFormedUriString(baseUrl, UriKind.Absolute))
@@ -168,7 +168,7 @@ namespace URL_Shortener.Controllers
                 URL url = _urlContext.UrlSet.Single(x => x.ShortenedIdentifier == shortenedID);
 
                 //Creating the object to return to the user
-                var returnObject = new
+                var returnObject = new UrlStats
                 {
                     baseUrl = _urlService.ReturnBaseUrl(_urlContext, shortenedID),
                     shortenedUrl = ShortURL,

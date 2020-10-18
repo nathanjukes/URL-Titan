@@ -874,3 +874,4 @@ E:\coding\GitHub\Repos\URL-Shortener\URL-Titan\URL-Shortener\obj\Debug\netcoreap
 E:\coding\GitHub\Repos\URL-Shortener\URL-Titan\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.dll
 E:\coding\GitHub\Repos\URL-Shortener\URL-Titan\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.pdb
 E:\coding\GitHub\Repos\URL-Shortener\URL-Titan\URL-Shortener\obj\Debug\netcoreapp3.1\URL-Shortener.genruntimeconfig.cache
+E:\coding\GitHub\Repos\URL-Shortener\URL-Titan\URL-Shortener\obj\Debug\netcoreapp3.1\Razor\Views\URL\LinkTracking.cshtml.g.cs

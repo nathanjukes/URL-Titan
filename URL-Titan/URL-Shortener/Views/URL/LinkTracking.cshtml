@@ -1,0 +1,19 @@
+﻿@using URL_Shortener.Models;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model LinkTrackingModel
+@{
+    ViewData["Title"] = "URL Titan: Link Tracking";
+    Layout = "_Layout";
+}
+
+<h1>LinkTracking</h1>
+
+@if(Model.UrlData != null)
+{
+    <div>
+        @foreach(var i in Model.UrlData)
+        {
+            <h3>@i.Key: @i.Value</h3>
+        }
+    </div>
+}
